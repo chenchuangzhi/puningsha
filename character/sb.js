@@ -506,15 +506,20 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				limited:true,
 				animationColor:'orange',
 				enable:'chooseToUse',
+				init:function(event,player){
+					player.storage.niepan_num= 1;
+				},
 				filter:function(event,player){
 					if(event.type!='dying') return false;
 					if(player!=event.dying) return false;
+					if(player.storage.niepan_num <= 0) return false
 					return true;
 				},
 				content:function(){
 					'step 0'
 					player.awakenSkill('oldniepan');
 					player.discard(player.getCards('hej'));
+					player.storage.niepan_num--
 					'step 1'
 					player.link(false);
 					'step 2'
@@ -524,6 +529,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					'step 4'
 					if(player.hp < 3 && player.countCards('h',{suit:"heart"}) > 0){
 						player.recover(player.countCards('h',{suit:"heart"}))
+						player.storage.niepan_num++
 					}
 				},
 				ai:{
@@ -564,7 +570,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			wuxin:"无心",
 			wuxin_info:'你可以将一张红桃牌当作无中生有使用',
 			sbniepan:"涅槃",
-			sbniepan_info:"当你处于濒死阶段，你可以摸5张牌，若牌中有红桃牌，则你回复对应的血量",
+			sbniepan_info:"当你处于濒死阶段，你可以摸3张牌，若牌中有红桃牌，则你回复对应红桃牌数的血量",
 			xushimin:'许市民',
 			biyue:"闭月",
 			sbliegong:'烈弓',
