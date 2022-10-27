@@ -10,6 +10,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			liucheng:['female','qun',3,['splveying','spyingwu']],
 			sp_yangwan:['female','shu',3,['spmingxuan','spxianchou']],
 			sb_huangzhong:['male','shu',4,['sbliegong']],
+			xushimin:['male','daba',4,['sbliegong','biyue']]
 		},
 		skill:{
 			//于禁
@@ -278,6 +279,16 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					},
 				},
 			},
+			// 市民闭月
+			biyue:{
+				audio:2,
+				trigger:{player:'phaseJieshuBegin'},
+				frequent:true,
+				preHidden:true,
+				content:function(){
+					player.draw();
+				},
+			},
 			//刘赪
 			splveying:{
 				audio:2,
@@ -486,6 +497,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			spyingwu:'莺舞',
 			spyingwu_info:'若你拥有〖掠影〗，则：①每回合限两次，当你使用非伤害类普通锦囊牌指定目标后，你获得一个“椎”。②当你使用的非伤害类普通锦囊牌结算结束后，若你的“椎”数大于1，则你弃置两个“椎”，然后可以视为使用一张【杀】。',
 			sb_huangzhong:'谋黄忠',
+			xushimin:'许市民',
 			sbliegong:'烈弓',
 			sbliegong_info:'①若你的装备区内没有武器牌，则你手牌区内所有【杀】的属性视为无属性。②当你使用牌时，或成为其他角色使用牌的目标后，你记录此牌的花色。③当你使用【杀】指定唯一目标后，若你〖烈弓②〗的记录不为空，则你可亮出牌堆顶的X张牌（X为你〖烈弓②〗记录过的花色数-1），令此【杀】的伤害值基数+Y（Y为亮出牌中被〖烈弓②〗记录过花色的牌的数量），且目标角色不能使用〖烈弓②〗记录过花色的牌响应此【杀】。此【杀】使用结算结束后，你清除〖烈弓②〗的记录。',
 			sb_huaxiong:'谋华雄',
