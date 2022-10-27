@@ -10,7 +10,8 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			liucheng:['female','qun',3,['splveying','spyingwu']],
 			sp_yangwan:['female','shu',3,['spmingxuan','spxianchou']],
 			sb_huangzhong:['male','shu',4,['sbliegong']],
-			xushimin:['male','daba',4,['sbliegong','biyue']]
+			xushimin:['male','daba',4,['sbliegong','biyue']],
+			sb_pangtong:['male','shu',3,['wuxin','sbniepan']]
 		},
 		skill:{
 			//于禁
@@ -484,6 +485,68 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					}
 				},
 			},
+			wuxin:{
+				audio:['xinlianhuan',1],
+				audioname:['ol_pangtong'],
+				enable:'chooseToUse',
+				filter:function(event,player){
+					return player.countCards('hs',{suit:'heart'})>0;
+				},
+				filterCard:{suit:'heart'},
+				viewAs:{name:'wuzhong'},
+				prompt:'你可以将一张红桃牌当作无中生有使用',
+				check:function(card){return 6-get.value(card)},
+			},
+			sbniepan:{
+				audio:'niepan',
+				unique:true,
+				mark:true,
+				skillAnimation:true,
+				animationStr:'涅盘',
+				limited:true,
+				animationColor:'orange',
+				enable:'chooseToUse',
+				filter:function(event,player){
+					if(event.type!='dying') return false;
+					if(player!=event.dying) return false;
+					return true;
+				},
+				content:function(){
+					'step 0'
+					player.awakenSkill('oldniepan');
+					player.discard(player.getCards('hej'));
+					'step 1'
+					player.link(false);
+					'step 2'
+					player.turnOver(false);
+					'step 3'
+					player.draw(3);
+					'step 4'
+					if(player.hp < 3 && player.countCards('h',{suit:"heart"}) > 0){
+						player.recover(player.countCards('h',{suit:"heart"}))
+					}
+				},
+				ai:{
+					order:1,
+					skillTagFilter:function(player,arg,target){
+						if(player!=target||player.storage.oldniepan) return false;
+					},
+					save:true,
+					result:{
+						player:function(player){
+							if(player.hp<=0) return 10;
+							if(player.hp<=2&&player.countCards('he')<=1) return 10;
+							return 0;
+						}
+					},
+					threaten:function(player,target){
+						if(!target.storage.oldniepan) return 0.6;
+					}
+				},
+				intro:{
+					content:'limited'
+				}
+			}
 		},
 		translate:{
 			sp_yangwan:'手杀杨婉',
@@ -497,7 +560,13 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			spyingwu:'莺舞',
 			spyingwu_info:'若你拥有〖掠影〗，则：①每回合限两次，当你使用非伤害类普通锦囊牌指定目标后，你获得一个“椎”。②当你使用的非伤害类普通锦囊牌结算结束后，若你的“椎”数大于1，则你弃置两个“椎”，然后可以视为使用一张【杀】。',
 			sb_huangzhong:'谋黄忠',
+			sb_pangtong:'谋庞统',
+			wuxin:"无心",
+			wuxin_info:'你可以将一张红桃牌当作无中生有使用',
+			sbniepan:"涅槃",
+			sbniepan_info:"当你处于濒死阶段，你可以摸5张牌，若牌中有红桃牌，则你回复对应的血量",
 			xushimin:'许市民',
+			biyue:"闭月",
 			sbliegong:'烈弓',
 			sbliegong_info:'①若你的装备区内没有武器牌，则你手牌区内所有【杀】的属性视为无属性。②当你使用牌时，或成为其他角色使用牌的目标后，你记录此牌的花色。③当你使用【杀】指定唯一目标后，若你〖烈弓②〗的记录不为空，则你可亮出牌堆顶的X张牌（X为你〖烈弓②〗记录过的花色数-1），令此【杀】的伤害值基数+Y（Y为亮出牌中被〖烈弓②〗记录过花色的牌的数量），且目标角色不能使用〖烈弓②〗记录过花色的牌响应此【杀】。此【杀】使用结算结束后，你清除〖烈弓②〗的记录。',
 			sb_huaxiong:'谋华雄',
