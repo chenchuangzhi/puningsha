@@ -532,7 +532,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 ai: {
                     order: 1,
                     skillTagFilter: function (player, arg, target) {
-                        if (player != target || player.storage.oldniepan) return false;
+                        if (player != target || player.storage.sbniepan) return false;
                     },
                     save: true,
                     result: {
@@ -543,12 +543,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                         }
                     },
                     threaten: function (player, target) {
-                        if (!target.storage.oldniepan) return 0.6;
+                        if (!target.storage.sbniepan) return 0.6;
                     }
                 },
-                intro: {
-                    content: 'limited'
-                }
             }
         },
         translate: {
