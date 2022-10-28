@@ -531,9 +531,6 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
                 ai: {
                     order: 1,
-                    skillTagFilter: function (player, arg, target) {
-                        if (player != target || player.storage.sbniepan) return false;
-                    },
                     save: true,
                     result: {
                         player: function (player) {
