@@ -501,7 +501,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 audio: 'niepan',
                 skillAnimation: true,
                 animationStr: '涅盘',
-                usable: 1,
+                round: 1,
                 animationColor: 'orange',
                 enable: 'chooseToUse',
                 init: function (player) {
@@ -561,7 +561,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             wuxin: "无心",
             wuxin_info: '你可以将一张红桃牌当作〖无中生有〗使用',
             sbniepan: "涅槃",
-            sbniepan_info: "〖每回合限一次〗当你处于濒死阶段，你可以摸5张牌，若牌中有红桃牌，则你回复对应红桃牌数的血量",
+            sbniepan_info: "〖每轮限一次〗当你处于濒死阶段，你可以摸5张牌，若牌中有红桃牌，则你回复对应红桃牌数的血量",
             xushimin: '许市民',
             biyue: "闭月",
             sbliegong: '烈弓',
