@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.119.8',
+	version:'1.9.119.9',
 	update:'1.9.119',
 	changeLog:[
 		'陈帅技能自动放',
