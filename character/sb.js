@@ -619,7 +619,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                         if(trigger.player.countMark('dunai') % 2 === 0){ // 毒奶标记为偶数
                             trigger.player.recover(trigger.player.countMark('dunai')) // 回复毒奶印记血量
                         }else{ // 毒奶标记为奇数
-                            trigger.player.loseHp(trigger.player.countMark('dunai')) // 扣除毒奶印记血量
+                            trigger.player.damage(trigger.player.countMark('dunai')) // 扣除毒奶印记血量
                         }
                         "step 1"
                         trigger.player.removeMark('dunai') // 毒奶标记减一
@@ -670,7 +670,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 			jianyu_info:'出牌阶段开始时，你可以选择发动该技能，视为你使用一张【万箭齐发】',
             dachu:'大厨',
             dunai:'毒奶',
-            dunai_info:'【锁定技】回合开始阶段或回合结束，你需要指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，其失去标记数量的生命值；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',
+            dunai_info:'【锁定技】回合开始阶段或回合结束，你需要指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，对其造成标记数量的伤害；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',
             douguaishiming:'都怪市民',
             douguaishiming_info:'【锁定技】当你受到大于1的伤害后，你需要指定一名角色，该角色获得一个“毒奶”标记。',
             biyue: "闭月",
