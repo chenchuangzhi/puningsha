@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.0',
+	version:'1.9.120.1',
 	update:'1.9.120',
 	changeLog:[
-		'新增武将大厨',
+		'大厨技能改造',
 	],
 	files:[
 		'character/sb.js',
