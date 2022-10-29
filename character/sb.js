@@ -11,7 +11,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sp_yangwan: ['female', 'shu', 3, ['spmingxuan', 'spxianchou']],
             sb_huangzhong: ['male', 'shu', 4, ['sbliegong']],
             xushimin: ['male', 'daba', 4, ['sbliegong', 'biyue']],
-            sb_pangtong: ['male', 'shu', 3, ['wuxin', 'sbniepan']]
+            sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
+			chenshuai:['male','daba',4,['feigong','jianyu']]
         },
         skill: {
             //于禁
@@ -485,7 +486,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     }
                 },
             },
-            wuxin: {
+            sbwuxin: {
                 audio: ['xinlianhuan', 1],
                 audioname: ['ol_pangtong'],
                 enable: 'chooseToUse',
@@ -495,7 +496,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 filterCard: { suit: 'heart' },
                 viewAs: { name: 'wuzhong' },
                 prompt: '你可以将一张红桃牌当作无中生有使用',
-                check: function (card) { return 6 - get.value(card) },
+                check: function (card) { return 7 - get.value(card) },
             },
             sbniepan: {
                 audio: 'niepan',
@@ -535,7 +536,6 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     result: {
                         player: function (player) {
                             if (player.hp <= 0) return 10;
-                            if (player.hp <= 2 && player.countCards('he') <= 1) return 10;
                             return 0;
                         }
                     },
@@ -543,7 +543,47 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                         if (!target.storage.sbniepan) return 0.6;
                     }
                 },
-            }
+            },
+			feigong:{
+				skillAnimation: true,
+                animationStr: '非攻',
+				animationColor: 'blue',
+				trigger: {  source:'damageBefore' },
+				content: function () {
+                    'step 0'
+						player.chooseTarget(1,function(card,player,trigger){
+							return trigger.hp !== trigger.maxHp
+						})
+					'step 1'
+					if(result.bool){
+						var r = result.targets[0]
+						trigger.cancel();
+						r.recover(Math.min(r.getDamagedHp(),trigger.num))
+					}
+                },
+				ai:{
+					effect:{
+						threaten:1.1,
+						player:function(card,player,target ){
+							if(player.hp < player.maxHp -1) return 1.5
+						},
+						target:function(card,player,target){
+							if(target.hp === 1) return 1.0
+						}
+					}
+				}
+			},
+			jianyu:{
+				skillAnimation: true,
+                animationStr: '箭雨',
+				animationColor: 'blue',
+				trigger: {  player:'phaseUseBegin' },
+				direct:true,
+				content:function(){
+					player.chooseUseTarget({name:'wanjian',isCard:true},get.prompt('jianyu'),'视为使用一张【万箭齐发】').logSkill='jianyu';
+				},
+				frequent:true,//设为自动发动
+			}
         },
         translate: {
             sp_yangwan: '手杀杨婉',
@@ -558,11 +598,16 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             spyingwu_info: '若你拥有〖掠影〗，则：①每回合限两次，当你使用非伤害类普通锦囊牌指定目标后，你获得一个“椎”。②当你使用的非伤害类普通锦囊牌结算结束后，若你的“椎”数大于1，则你弃置两个“椎”，然后可以视为使用一张【杀】。',
             sb_huangzhong: '谋黄忠',
             sb_pangtong: '谋庞统',
-            wuxin: "无心",
-            wuxin_info: '你可以将一张红桃牌当作〖无中生有〗使用',
+            sbwuxin: "无心",
+            sbwuxin_info: '你可以将一张红桃牌当作〖无中生有〗使用',
             sbniepan: "涅槃",
             sbniepan_info: "〖每轮限一次〗当你处于濒死阶段，你可以摸5张牌，若牌中有红桃牌，则你回复对应红桃牌数的血量",
             xushimin: '许市民',
+			chenshuai:'陈帅',
+			feigong:'非攻',
+			feigong_info:'每当你对其他角色造成伤害后，你可以阻止该伤害，并令一名非满血玩家回复对应伤害的血量（若玩家损失血量小于对应伤害，则目标玩家回复至满血）',
+			jianyu:'箭雨',
+			jianyu_info:'出牌阶段开始时，你可以选择发动该技能，视为你使用一张【万箭齐发】',
             biyue: "闭月",
             sbliegong: '烈弓',
             sbliegong_info: '①若你的装备区内没有武器牌，则你手牌区内所有【杀】的属性视为无属性。②当你使用牌时，或成为其他角色使用牌的目标后，你记录此牌的花色。③当你使用【杀】指定唯一目标后，若你〖烈弓②〗的记录不为空，则你可亮出牌堆顶的X张牌（X为你〖烈弓②〗记录过的花色数-1），令此【杀】的伤害值基数+Y（Y为亮出牌中被〖烈弓②〗记录过花色的牌的数量），且目标角色不能使用〖烈弓②〗记录过花色的牌响应此【杀】。此【杀】使用结算结束后，你清除〖烈弓②〗的记录。',

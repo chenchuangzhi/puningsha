@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.118.3',
-	update:'1.9.118',
+	version:'1.9.119.3',
+	update:'1.9.119',
 	changeLog:[
-		'没有任何更新',
+		'更新陈帅',
 	],
 	files:[
 		//'card/extra.js',
@@ -32,7 +32,7 @@ window.noname_update={
 		//'character/ow.js',
 		//'character/rank.js',
 		//'character/refresh.js',
-		//'character/sb.js',
+		'character/sb.js',
 		//'character/shenhua.js',
 		'character/sp.js',
 		'character/sp2.js',
