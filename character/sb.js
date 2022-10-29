@@ -632,7 +632,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     forced:true,  //锁定技
                     trigger: {  player:['damageEnd'] },  //受到伤害时
                     function(event,player){//发动限制条件
-                        return event,num > 1
+                        return event.num > 1
                       },
                     content:function(){//技能内容:
                         "step 0"
