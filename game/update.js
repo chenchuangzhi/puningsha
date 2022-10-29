@@ -1,11 +1,8 @@
 window.noname_update={
-	version:'1.9.116.1',
-	update:'1.9.116',
+	version:'1.9.118.3',
+	update:'1.9.118',
 	changeLog:[
-		'派对浪客、樱庭星罗入选稿公布',
-		'OL曹宪曹华、十周年刘巴、陆凯、夏侯令女',
-		'花色字体显示优化',
-		'技能调整与bug修复',
+		'没有任何更新',
 	],
 	files:[
 		//'card/extra.js',
