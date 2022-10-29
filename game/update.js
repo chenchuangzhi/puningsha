@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.119.11',
+	version:'1.9.119.12',
 	update:'1.9.119',
 	changeLog:[
 		'新增武将大厨',
