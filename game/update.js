@@ -1,11 +1,10 @@
 window.noname_update={
-	version:'1.9.119.5',
+	version:'1.9.119.6',
 	update:'1.9.119',
 	changeLog:[
-		'新增陈帅贴图',
+		'陈帅技能自动放',
 	],
 	files:[
-		'game/game.js',
-		'image/character/chenshuai.jpg'
+		'character/sb.js',
 	]
 };
