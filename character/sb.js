@@ -12,7 +12,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sb_huangzhong: ['male', 'shu', 4, ['sbliegong']],
             xushimin: ['male', 'daba', 4, ['sbliegong', 'biyue']],
             sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
-			chenshuai:['male','daba',4,['feigong','jianyu']]
+			chenshuai:['male','daba',4,['feigong','jianyu']],
+            dachu:['male','wu',4,['dunai','douguaishiming']]
         },
         skill: {
             //于禁
@@ -589,14 +590,57 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 animationStr: '毒奶',
                 animationColor: 'red',
                 mark:true,   //有标记
+                marktext:'毒奶', // 标记名称
                 intro:{//标记介绍
-                    content:function(storage,player,skill){"毒奶印记"},//标记介绍内容
-                    mark:function(dialog,content,player){""},//内容补充
+                    name2:'毒奶',
+                    content:'已有#层毒'
                 },
-                selectTarget:1,  //选择一名
-                filterTarget:true,   //任意角色
                 trigger: {  player:['phaseZhunbeiBegin','phaseJieshuBegin'] },  //回合开始阶段或回合结束阶段
-            }
+                content:function(){//技能内容:
+                    "step 0"
+                    player.chooseTarget(true)
+                    "step 1"
+                    let r = result.targets // 选择的目标数组
+                    // trigger是选择的目标
+                    r[0].addMark('dunai') // 给该角色加上一层毒奶标记
+                },
+                group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
+            },
+            dunai_duor:{
+                    trigger:{//时机:
+                        global:"phaseZhunbeiBegin",//准备阶段
+                      },
+                    forced:true,//锁定技
+                    filter:function(event,player){ // 限定技能发动函数
+                        return event.player&&event.player.hasMark('dunai')&& event.player.countMark('dunai') > 0; // 有毒奶才会发动这个技能
+                    },
+                    content:function(){// 技能内容
+                        "step 0"
+                        if(trigger.player.countMark('dunai') % 2 === 0){ // 毒奶标记为偶数
+                            trigger.player.recover(trigger.player.countMark('dunai')) // 回复毒奶印记血量
+                        }else{ // 毒奶标记为奇数
+                            trigger.player.loseHp(trigger.player.countMark('dunai')) // 扣除毒奶印记血量
+                        }
+                        "step 1"
+                        trigger.player.removeMark('dunai') // 毒奶标记减一
+                        if(trigger.player.countMark('dunai') === 0){ // 毒奶标记为0
+                            trigger.player.unmarkSkill('dunai') //移除毒奶标记
+                        }
+                    }
+                },
+                douguaishiming:{
+                    forced:true,  //锁定技
+                    trigger: {  player:['damageEnd'] },  //受到伤害时
+                    content:function(){//技能内容:
+                        "step 0"
+                        player.chooseTarget(true)
+                        "step 1"
+                        let r = result.targets // 选择的目标数组
+                        // trigger是选择的目标
+                        r[0].addMark('dunai') // 给该角色加上一层毒奶标记
+                    },
+                    group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
+                }
         },
         translate: {
             sp_yangwan: '手杀杨婉',
