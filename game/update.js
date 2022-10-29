@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.3',
+	version:'1.9.120.4',
 	update:'1.9.120',
 	changeLog:[
 		'更新新武将空白，林包燎原势力',
