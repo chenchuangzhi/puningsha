@@ -582,7 +582,21 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				content:function(){
 					player.chooseUseTarget({name:'wanjian',isCard:true},get.prompt('jianyu'),'视为使用一张【万箭齐发】').logSkill='jianyu';
 				},
-			}
+			},
+            dunai:{
+                forced:true,  //锁定技
+                skillAnimation: true,  //有动画
+                animationStr: '毒奶',
+                animationColor: 'red',
+                mark:true,   //有标记
+                intro:{//标记介绍
+                    content:function(storage,player,skill){"毒奶印记"},//标记介绍内容
+                    mark:function(dialog,content,player){""},//内容补充
+                },
+                selectTarget:1,  //选择一名
+                filterTarget:true,   //任意角色
+                trigger: {  player:['phaseZhunbeiBegin','phaseJieshuBegin'] },  //回合开始阶段或回合结束阶段
+            }
         },
         translate: {
             sp_yangwan: '手杀杨婉',
@@ -607,6 +621,11 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 			feigong_info:'每当你对其他角色造成伤害后，你可以阻止该伤害，并令一名非满血玩家回复对应伤害的血量（若玩家损失血量小于对应伤害，则目标玩家回复至满血）',
 			jianyu:'箭雨',
 			jianyu_info:'出牌阶段开始时，你可以选择发动该技能，视为你使用一张【万箭齐发】',
+            dachu:'大厨',
+            dunai:'毒奶',
+            dunai_info:'【锁定技】回合开始阶段或回合结束，你需要指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，其失去标记数量的生命值；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',
+            douguaishiming:'都怪市民',
+            douguaishiming_info:'【锁定技】当你受到大于1的伤害后，你需要指定一名角色，该角色获得一个“毒奶”标记。',
             biyue: "闭月",
             sbliegong: '烈弓',
             sbliegong_info: '①若你的装备区内没有武器牌，则你手牌区内所有【杀】的属性视为无属性。②当你使用牌时，或成为其他角色使用牌的目标后，你记录此牌的花色。③当你使用【杀】指定唯一目标后，若你〖烈弓②〗的记录不为空，则你可亮出牌堆顶的X张牌（X为你〖烈弓②〗记录过的花色数-1），令此【杀】的伤害值基数+Y（Y为亮出牌中被〖烈弓②〗记录过花色的牌的数量），且目标角色不能使用〖烈弓②〗记录过花色的牌响应此【杀】。此【杀】使用结算结束后，你清除〖烈弓②〗的记录。',
