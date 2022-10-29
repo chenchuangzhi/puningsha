@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.2',
+	version:'1.9.120.3',
 	update:'1.9.120',
 	changeLog:[
-		'大厨技能削弱',
+		'更新新武将空白，林包燎原势力',
 	],
 	files:[
 		'character/sb.js',
