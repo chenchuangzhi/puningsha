@@ -13,7 +13,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             xushimin: ['male', 'daba', 4, ['sbliegong', 'biyue']],
             sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
 			chenshuai:['male','daba',4,['feigong','jianyu']],
-            dachu:['male','wu',4,['dunai','douguaishiming']]
+            dachu:['male','liaoyuan2',4,['dunai','douguaishiming']]
         },
         skill: {
             //于禁

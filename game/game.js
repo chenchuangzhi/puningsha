@@ -10244,6 +10244,7 @@
 			key:'键',
 			jin:'晋',
 			daba:'大坝',
+            liaoyuan2:'燎原',
 			double:'双',
 			wei2:'魏国',
 			shu2:'蜀国',
@@ -10272,6 +10273,7 @@
 			shenColor:"#ffe14c",
 			westernColor:"#ffe14c",
 			dabaColor:"#66CC00",
+            liaoyuan2Color:"#000000",
 			jinColor:"#ffe14c",
 			keyColor:"#c9b1fd",
 			basic:'基本',
@@ -29172,7 +29174,8 @@
 			key:'key',
 			jin:'thunder',
 			ye:'thunder',
-			daba:'thunder'
+			daba:'thunder',
+            liaoyuan2:'thunder'
 		},
 		phaseName:['phaseZhunbei','phaseJudge','phaseDraw','phaseUse','phaseDiscard','phaseJieshu'],
 		quickVoice:[
@@ -43937,7 +43940,7 @@
 				},true,true);
 			},
 			groupControl:function(dialog){
-				return ui.create.control('wei','shu','wu','qun','jin','western','daba','key',function(link,node){
+				return ui.create.control('wei','shu','wu','qun','jin','western','daba','liaoyuan2','key',function(link,node){
 					if(link=='全部'){
 						dialog.currentcapt='';
 						dialog.currentgroup='';
@@ -44367,7 +44370,7 @@
 					}
 				}
 				if(!thisiscard){
-					var groups=['wei','shu','wu','qun','jin','daba'];
+					var groups=['wei','shu','wu','qun','jin','daba','liaoyuan2'];
 					var bool1=false;
 					var bool2=false;
 					var bool3=(get.mode()=='guozhan'&&_status.forceKey!=true&&get.config('onlyguozhan'));
@@ -54289,7 +54292,7 @@
 			}
 		},
 		groups:function(){
-			return ['wei','shu','wu','qun','jin','western','key','daba'];
+			return ['wei','shu','wu','qun','jin','western','key','daba','liaoyuan2'];
 		},
 		types:function(){
 			var types=[];
