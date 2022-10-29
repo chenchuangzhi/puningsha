@@ -13,7 +13,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             xushimin: ['male', 'daba', 4, ['sbliegong', 'biyue']],
             sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
 			chenshuai:['male','daba',4,['feigong','jianyu']],
-            dachu:['male','liaoyuan2',4,['dunai','douguaishiming']]
+            dachu:['male','liaoyuan2',4,['dunai','douguaishiming']],
+            // mushuihan:['male','daba',4,[]]
         },
         skill: {
             //于禁
@@ -585,24 +586,31 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				},
 			},
             dunai:{
-                forced:true,  //锁定技
+                // forced:true,  //锁定技
                 skillAnimation: true,  //有动画
                 animationStr: '毒奶',
                 animationColor: 'red',
-                mark:true,   //有标记
-                marktext:'毒奶', // 标记名称
                 intro:{//标记介绍
                     name2:'毒奶',
                     content:'已有#层毒'
                 },
                 trigger: {  player:['phaseZhunbeiBegin','phaseJieshuBegin'] },  //回合开始阶段或回合结束阶段
+                filter:function(event,player){
+                    return player.countCards('h') > 0 // 手牌大于0才能发动
+                },
                 content:function(){//技能内容:
                     "step 0"
-                    player.chooseTarget(true)
+                    player.chooseToDiscard('h')
                     "step 1"
-                    let r = result.targets // 选择的目标数组
-                    // trigger是选择的目标
-                    r[0].addMark('dunai') // 给该角色加上一层毒奶标记
+                    if(result.bool){
+                        player.chooseTarget(true)
+                    }
+                    "step 2"
+                    if(result.bool && result.targets && result.targets.length > 0){
+                        let r = result.targets // 选择的目标数组
+                        // trigger是选择的目标
+                        r[0].addMark('dunai') // 给该角色加上一层毒奶标记
+                    }
                 },
                 group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
             },
@@ -643,7 +651,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                             r[0].addMark('dunai') // 给该角色加上一层毒奶标记
                     },
                     group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
-                }
+                },
         },
         translate: {
             sp_yangwan: '手杀杨婉',
@@ -670,9 +678,16 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 			jianyu_info:'出牌阶段开始时，你可以选择发动该技能，视为你使用一张【万箭齐发】',
             dachu:'大厨',
             dunai:'毒奶',
-            dunai_info:'【锁定技】回合开始阶段或回合结束，你需要指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，对其造成标记数量的伤害；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',
+            dunai_info:'回合开始阶段或回合结束，你可以弃置一张手牌，然后指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，对其造成标记数量的伤害；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',
             douguaishiming:'都怪市民',
             douguaishiming_info:'【锁定技】当你受到大于1的伤害后，你需要指定一名角色，该角色获得一个“毒奶”标记。',
+            mushuihan:"木水涵",
+            guaichu:"怪厨",
+            guaichu_info:"你的回合内，你每受到一点伤害，你摸两张手牌",
+            guaishuai:"怪帅",
+            guaishuai_info:"当你成为其他牌目标时，若此牌目标大于1，你摸两张牌",
+            guaimin:"怪民",
+            guaimin_info:"当有其他角色在回合结束阶段摸牌时，你摸两张牌",
             biyue: "闭月",
             sbliegong: '烈弓',
             sbliegong_info: '①若你的装备区内没有武器牌，则你手牌区内所有【杀】的属性视为无属性。②当你使用牌时，或成为其他角色使用牌的目标后，你记录此牌的花色。③当你使用【杀】指定唯一目标后，若你〖烈弓②〗的记录不为空，则你可亮出牌堆顶的X张牌（X为你〖烈弓②〗记录过的花色数-1），令此【杀】的伤害值基数+Y（Y为亮出牌中被〖烈弓②〗记录过花色的牌的数量），且目标角色不能使用〖烈弓②〗记录过花色的牌响应此【杀】。此【杀】使用结算结束后，你清除〖烈弓②〗的记录。',
