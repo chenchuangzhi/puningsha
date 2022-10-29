@@ -631,13 +631,15 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 douguaishiming:{
                     forced:true,  //锁定技
                     trigger: {  player:['damageEnd'] },  //受到伤害时
+                    function(event,player){//发动限制条件
+                        return event,num > 1
+                      },
                     content:function(){//技能内容:
                         "step 0"
-                        player.chooseTarget(true)
+                            player.chooseTarget(true)
                         "step 1"
-                        let r = result.targets // 选择的目标数组
-                        // trigger是选择的目标
-                        r[0].addMark('dunai') // 给该角色加上一层毒奶标记
+                            let r = result.targets // 选择的目标数组
+                            r[0].addMark('dunai') // 给该角色加上一层毒奶标记
                     },
                     group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
                 }
