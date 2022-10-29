@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.119.10',
+	version:'1.9.119.11',
 	update:'1.9.119',
 	changeLog:[
-		'陈帅技能自动放',
+		'新增武将大厨',
 	],
 	files:[
 		'character/sb.js',
