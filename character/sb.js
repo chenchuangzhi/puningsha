@@ -582,9 +582,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				content:function(){
 					player.chooseUseTarget({name:'wanjian',isCard:true},get.prompt('jianyu'),'视为使用一张【万箭齐发】').logSkill='jianyu';
 				},
-				frequent:function(event,player){
-                    return player.hp>0;//你体力大于0时自动发动
-                },
+				ai:{
+                    threaten:99,
+                }
 			}
         },
         translate: {
