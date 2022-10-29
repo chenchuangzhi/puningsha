@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.119.3',
+	version:'1.9.119.4',
 	update:'1.9.119',
 	changeLog:[
-		'更新陈帅',
+		'开启自动更新',
 	],
 	files:[
 		//'card/extra.js',
