@@ -1,10 +1,12 @@
 window.noname_update={
-	version:'1.9.119.12',
-	update:'1.9.119',
+	version:'1.9.120.0',
+	update:'1.9.120',
 	changeLog:[
 		'新增武将大厨',
 	],
 	files:[
 		'character/sb.js',
+		'game/game.js',
+		'image/character/dachu.jpg'
 	]
 };
