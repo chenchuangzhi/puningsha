@@ -578,6 +578,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 animationStr: '箭雨',
 				animationColor: 'blue',
 				trigger: {  player:'phaseUseBegin' },
+				direct:true,
 				content:function(){
 					player.chooseUseTarget({name:'wanjian',isCard:true},get.prompt('jianyu'),'视为使用一张【万箭齐发】').logSkill='jianyu';
 				},
