@@ -9,6 +9,7 @@ window.noname_update={
 		'game/game.js',
 		'character/shenhua.js',
 		'image/character/dachu.jpg',
-		'image/character/mushuihan.jpg'
+		'image/character/mushuihan.jpg',
+		'image/character/gaohuan.jpg'
 	]
 };

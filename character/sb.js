@@ -14,7 +14,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
 			chenshuai:['male','daba',4,['feigong','jianyu']],
             dachu:['male','liaoyuan2',4,['dunai','douguaishiming']],
-            mushuihan:['male','daba',4,['guaishuai','guaichu','guaimin']]
+            mushuihan:['male','daba',4,['guaishuai','guaichu','guaimin']],
+            gaohuan:['male','qun',4,['yanji']]
         },
         skill: {
             //于禁
@@ -716,6 +717,30 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 content:function(){
                     player.draw(2);
                 },
+            },
+            yanji:{
+                enable:"phaseUse",//出牌阶段发动
+                selectCard:1,//弃置一张
+                position:'e',
+                filterCard:function(card,player){
+					return card==player.getEquip(3) || card==player.getEquip(4);  // 选择+马或-马
+				},
+                filter:function(event,player){
+                    return player.getEquip(3) || player.getEquip(4)
+                },
+                filterTarget:function(card,player,target){
+					return target!=player;
+				},
+				selectCard:1,
+				selectTarget:-1,
+                content:function(){//内容:
+                    'step 0'
+                    target.chooseCard(true).set("prompt",'选择一张牌交给'+get.translation(player))
+                    'step 1'
+					if(result){
+						player.gain(result.cards,target,'giveAuto');
+					}
+                },
             }
         },
         translate: {
@@ -764,6 +789,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sbxiayuan_info: '每轮限一次。其他角色受到伤害后，若其因此伤害触发过护甲效果且其没有护甲，则你可弃置两张手牌，令其获得X点护甲（X为其因此伤害触发护甲效果而失去的护甲数量）。',
             sbjieyue: '节钺',
             sbjieyue_info: '结束阶段，你可以令一名其他角色获得1点护甲。然后其可以交给你一张牌。',
+            gaohuan:'高欢',
+            yanji:'严纪',
+            yanji_info:'出牌阶段开始时，你可以发动此技能，选择弃置一张装备牌里的马，然后让场上其他角色选择一张牌给你。'
         },
     };
 });
