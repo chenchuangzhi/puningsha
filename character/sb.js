@@ -14,7 +14,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
 			chenshuai:['male','daba',4,['feigong','jianyu']],
             dachu:['male','liaoyuan2',4,['dunai','douguaishiming']],
-            mushuihan:['male','daba',4,['guaishuai']]
+            mushuihan:['male','daba',4,['guaishuai','guaichu','guaimin']]
         },
         skill: {
             //于禁
@@ -600,13 +600,13 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
                 content:function(){//技能内容:
                     "step 0"
-                    player.chooseToDiscard('h')
+                    player.chooseToDiscard('h') // 选择弃置一张手牌
                     "step 1"
-                    if(result.bool){
-                        player.chooseTarget(true)
+                    if(result.bool){ // 有没有弃置手牌
+                        player.chooseTarget(true) // 选择目标
                     }
                     "step 2"
-                    if(result.bool && result.targets && result.targets.length > 0){
+                    if(result.bool && result.targets && result.targets.length > 0){ // 是否选择了目标
                         let r = result.targets // 选择的目标数组
                         // trigger是选择的目标
                         r[0].addMark('dunai') // 给该角色加上一层毒奶标记
@@ -653,7 +653,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
                 },
             guaishuai:{
-                trigger:{global:'useCardToPlayered'},
+                forced:true, 
+                trigger:{global:'useCardToPlayered'},// 使用卡盘指定别人
                 filter:function(event,player,game){
                     if(!event.isFirstTarget) return false;   //指定第一个目标时才发动，防止一个万剑摸14牌
                     //if(get.type(event.card)!='trick') return false;  //如果是锦囊牌
@@ -664,6 +665,39 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
                 content:function(){
                      player.draw(2);
+                },
+            },
+            guaichu:{
+                forced:true, 
+                trigger:{player:'damageEnd'},// 受到伤害时
+                filter:function(event,player,game){
+                    if(_status.currentPhase!==player){ // 必须在自己回合内受到伤害才会触发
+                        return false
+                    }
+                    return true
+                },
+                content:function(){
+                     player.draw(2);
+                },
+            },
+            guaimin: {
+                forced: true,
+                trigger:{global:'phaseDiscardAfter'},
+                filter: function (event, player,) {
+                    return event.player!=player; //不包含自己,则其他角色
+                },
+                content:function(){
+                    player.addTempSkill('guaimin2','phaseBefore'); // 添加临时技能，直到回合结束
+                },
+            },
+            guaimin2:{
+                forced: true,
+                trigger:{global:'drawAfter'},
+                filter: function (event, player,) {
+                    return event.player!=player; //不包含自己,则其他角色
+                },
+                content:function(){
+                    player.draw(2);
                 },
             }
         },

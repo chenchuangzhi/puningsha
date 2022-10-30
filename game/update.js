@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.5',
+	version:'1.9.120.6',
 	update:'1.9.120',
 	changeLog:[
-		'解决空白武将无法显示的bug，取消自动检测更新',
+		'新增木水涵',
 	],
 	files:[
 		'character/sb.js',
