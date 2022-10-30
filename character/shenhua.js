@@ -41,7 +41,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			caopi:['male','wei',3,['xingshang','fangzhu','songwei'],['zhu']],
 			re_lusu:['male','wu',3,['haoshi','dimeng']],
 			sunjian:['male','wu',4,['gzyinghun']],
-			kongbai:['male','liaoyuan2',10,[]],
+			kongbai:['male','liaoyuan2',10,['baiban']],
 			dongzhuo:['male','qun',8,['jiuchi','roulin','benghuai','baonue'],['zhu']],
 			jiaxu:['male','qun',3,['luanwu','wansha','weimu']],
 
@@ -7133,6 +7133,17 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			"baiban":{
+				trigger:{
+					player:['phaseZhunbeiBegin'],
+				},
+				filter:function(event,player){
+					return player.hp < 0; // 血量小于0才能发动
+				},
+				content:function() {//技能内容:
+					player.draw();
+				},
+			},
 			"guhuo_respond":{
 				trigger:{
 					player:"chooseToRespondBegin",
@@ -7683,6 +7694,8 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			tiangong2:'天公',
 			xinliegong:'烈弓',
 			xinkuanggu:'狂骨',
+			baiban:'白板',
+			baiban_info:'回合开始阶段，若你的体力值小于0，你摸1张牌',
 			gzbuqu:'不屈',
 			gzbuqu_info:'①当你扣减1点体力时，若你的体力值小于1，则你将牌堆顶的一张牌置于你的武将牌上，称为“创”。②当你回复1点体力时，你移去一张“创”。③若你有“创”且点数均不相同，则你不结算濒死状态。',
 			xinkuanggu_info:'当你对距离1以内的一名角色造成1点伤害后，你可以回复1点体力或摸一张牌。',

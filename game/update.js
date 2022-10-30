@@ -1,12 +1,13 @@
 window.noname_update={
-	version:'1.9.120.4',
+	version:'1.9.120.5',
 	update:'1.9.120',
 	changeLog:[
-		'更新新武将空白，林包燎原势力',
+		'解决空白武将无法显示的bug，取消自动检测更新',
 	],
 	files:[
 		'character/sb.js',
 		'game/game.js',
+		'character/shenhua.js',
 		'image/character/dachu.jpg'
 	]
 };
