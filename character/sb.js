@@ -593,7 +593,10 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     if(!r){
                         return true
                     }
-                    return r.damage && r.damage < 1
+                    if(!r.damage){
+                        return true
+                    }
+                    return  r.damage < 1
                 },
 				content:function(){
 					player.chooseUseTarget({name:'wanjian',isCard:true},get.prompt('jianyu'),'视为使用一张【万箭齐发】').logSkill='jianyu';

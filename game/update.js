@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.8',
+	version:'1.9.120.9',
 	update:'1.9.120',
 	changeLog:[
 		'陈帅技能修改',
