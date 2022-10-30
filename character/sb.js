@@ -14,7 +14,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sb_pangtong: ['male', 'shu', 3, ['sbwuxin', 'sbniepan']],
 			chenshuai:['male','daba',4,['feigong','jianyu']],
             dachu:['male','liaoyuan2',4,['dunai','douguaishiming']],
-            // mushuihan:['male','daba',4,[]]
+            mushuihan:['male','daba',4,['guaishuai']]
         },
         skill: {
             //于禁
@@ -652,6 +652,20 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     },
                     group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
                 },
+            guaishuai:{
+                trigger:{global:'useCardToPlayered'},
+                filter:function(event,player,game){
+                    if(!event.isFirstTarget) return false;   //指定第一个目标时才发动，防止一个万剑摸14牌
+                    //if(get.type(event.card)!='trick') return false;  //如果是锦囊牌
+                    if(get.info(event.card).multitarget) return false;  //牌是多目标的牌
+                    if(!event.targets.includes(player)) return false;  //目标有自己
+                    if(event.targets.length<2) return false;   //目标数大于1
+                    return player.hp>0;
+                },
+                content:function(){
+                     player.draw(2);
+                },
+            }
         },
         translate: {
             sp_yangwan: '手杀杨婉',
@@ -681,11 +695,11 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             dunai_info:'回合开始阶段或回合结束，你可以弃置一张手牌，然后指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，对其造成标记数量的伤害；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',
             douguaishiming:'都怪市民',
             douguaishiming_info:'【锁定技】当你受到大于1的伤害后，你需要指定一名角色，该角色获得一个“毒奶”标记。',
-            mushuihan:"木水涵",
+            mushuihan:"沐水涵",
             guaichu:"怪厨",
             guaichu_info:"你的回合内，你每受到一点伤害，你摸两张手牌",
             guaishuai:"怪帅",
-            guaishuai_info:"当你成为其他牌目标时，若此牌目标大于1，你摸两张牌",
+            guaishuai_info:"当你成为牌目标时，若此牌目标大于1，你摸两张牌",
             guaimin:"怪民",
             guaimin_info:"当有其他角色在回合结束阶段摸牌时，你摸两张牌",
             biyue: "闭月",
