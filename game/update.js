@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.6',
+	version:'1.9.120.7',
 	update:'1.9.120',
 	changeLog:[
 		'新增木水涵',
@@ -8,6 +8,7 @@ window.noname_update={
 		'character/sb.js',
 		'game/game.js',
 		'character/shenhua.js',
-		'image/character/dachu.jpg'
+		'image/character/dachu.jpg',
+		'image/character/mushuihan.jpg'
 	]
 };
