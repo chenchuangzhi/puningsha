@@ -581,6 +581,20 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				animationColor: 'blue',
 				trigger: {  player:'phaseUseBegin' },
 				direct:true,
+                filter:function(event,player){
+                    let r
+                    let s = player.stat
+                    for (let i = s.length - 2;i > 0;i--) {
+                        if(s[i].isMe){
+                            r = s[i]
+                            break
+                        }
+                    }
+                    if(!r){
+                        return true
+                    }
+                    return r.damage && r.damage < 1
+                },
 				content:function(){
 					player.chooseUseTarget({name:'wanjian',isCard:true},get.prompt('jianyu'),'视为使用一张【万箭齐发】').logSkill='jianyu';
 				},
@@ -723,7 +737,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 			feigong:'非攻',
 			feigong_info:'每当你对其他角色造成伤害后，你可以阻止该伤害，并令一名非满血玩家回复对应伤害的血量（若玩家损失血量小于对应伤害，则目标玩家回复至满血）',
 			jianyu:'箭雨',
-			jianyu_info:'出牌阶段开始时，你可以选择发动该技能，视为你使用一张【万箭齐发】',
+			jianyu_info:'若你的上一回合没有造成伤害，则出牌阶段开始时，你可以选择发动该技能，视为你使用一张【万箭齐发】',
             dachu:'大厨',
             dunai:'毒奶',
             dunai_info:'回合开始阶段或回合结束，你可以弃置一张手牌，然后指定一名角色，该角色获得一个“毒奶”标记。一名角色的回合开始阶段，若该角色有“毒奶”标记，当标记数为奇数时，对其造成标记数量的伤害；当标记数为偶数时，其回复标记数量的生命值，然后失去一个标记',

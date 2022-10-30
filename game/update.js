@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.7',
+	version:'1.9.120.8',
 	update:'1.9.120',
 	changeLog:[
-		'新增木水涵',
+		'陈帅技能修改',
 	],
 	files:[
 		'character/sb.js',
