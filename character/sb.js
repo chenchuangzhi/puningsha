@@ -735,7 +735,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				selectTarget:-1,
                 content:function(){//内容:
                     'step 0'
-                    target.chooseCard(true).set("prompt",'选择一张牌交给'+get.translation(player))
+                    target.chooseCard(true,'he').set("prompt",'选择一张牌交给'+get.translation(player))
                     'step 1'
 					if(result){
 						player.gain(result.cards,target,'giveAuto');

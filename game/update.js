@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.10',
+	version:'1.9.120.11',
 	update:'1.9.120',
 	changeLog:[
-		'新增高欢',
+		'高欢技能调整',
 	],
 	files:[
 		'character/sb.js',

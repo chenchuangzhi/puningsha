@@ -41,7 +41,7 @@
 		},
 		updateURL:'https://raw.githubusercontent.com/chenchuangzhi/puningsha',
 		mirrorURL:'https://ghproxy.com/https://raw.githubusercontent.com/chenchuangzhi/puningsha',
-		hallURL:'47.99.105.222',
+		hallURL:'47.119.120.125',
 		assetURL:'',
 		changeLog:[],
 		updates:[],
