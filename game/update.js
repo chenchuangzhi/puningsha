@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.13',
+	version:'1.9.120.14',
 	update:'1.9.120',
 	changeLog:[
-		'增加新武将幻始',
+		'屏蔽幻始',
 	],
 	files:[
 		'character/sb.js',
@@ -11,6 +11,6 @@ window.noname_update={
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
-		'image/character/huanshi.jpg'
+		//'image/character/huanshi.jpg'
 	]
 };
