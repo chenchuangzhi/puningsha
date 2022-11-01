@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.14',
+	version:'1.9.120.15',
 	update:'1.9.120',
 	changeLog:[
-		'屏蔽幻始',
+		'不屏蔽幻始',
 	],
 	files:[
 		'character/sb.js',
