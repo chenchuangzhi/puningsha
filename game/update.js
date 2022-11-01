@@ -11,6 +11,6 @@ window.noname_update={
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
-		//'image/character/huanshi.jpg'
+		'image/character/huanshi.jpg'
 	]
 };
