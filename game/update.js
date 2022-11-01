@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.12',
+	version:'1.9.120.13',
 	update:'1.9.120',
 	changeLog:[
-		'高欢技能调整',
+		'紧急修复幻始可能带来的图片bug',
 	],
 	files:[
 		'character/sb.js',
@@ -11,6 +11,6 @@ window.noname_update={
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
-		'image/character/huanshi.jpg'
+		//'image/character/huanshi.jpg'
 	]
 };
