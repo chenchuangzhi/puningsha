@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.11',
+	version:'1.9.120.12',
 	update:'1.9.120',
 	changeLog:[
 		'高欢技能调整',
@@ -10,6 +10,7 @@ window.noname_update={
 		'character/shenhua.js',
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
-		'image/character/gaohuan.jpg'
+		'image/character/gaohuan.jpg',
+		'image/character/huanshi.jpg'
 	]
 };
