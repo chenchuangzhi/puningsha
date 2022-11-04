@@ -5,7 +5,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
         name: 'daba',
         connect: true,
         character: {
-            wuzhaoxiang:['female','daba',4,['refanghun','wufuhan']],
+            wuzhaoxiang:['female','daba',4,['wufanghun','wufuhan']],
         },
         skill: {
             wufuhan:{
@@ -160,7 +160,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     if(player.isMinHp()) player.recover();
                 },
             },
-            refanghun:{
+            wufanghun:{
                 mod:{
                     aiValue:function(player,card,num){
                         if(card.name!='sha'&&card.name!='shan') return;
@@ -177,6 +177,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     },
                 },
                 locked:false,
+                audio:'fanghun',
+                inherit:'fanghun',
                 trigger:{
                     player:'useCard',
                     target:'useCardToTargeted',
@@ -185,8 +187,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
         },
         translate: {
             wuzhaoxiang: '吴赵襄',
-            refanghun:'芳魂',
-            refanghun_info:'当你使用【杀】或成为【杀】的目标后，你获得1个“梅影”标记；你可以移去1个“梅影”标记来发动〖龙胆〗并摸一张牌。',
+            wufanghun:'芳魂',
+            wufanghun_info:'当你使用【杀】或成为【杀】的目标后，你获得1个“梅影”标记；你可以移去1个“梅影”标记来发动〖龙胆〗并摸一张牌。',
             wufuhan:'扶汉',
             wufuhan_info:'限定技，回合开始时，你可以移去所有"梅影"标记并摸等量的牌，然后从X张吴势力武将牌中选择并获得至多两个技能（限定技、觉醒技、隐匿技、使命技、主公技除外）。若此时你是体力值最低的角色，你回复1点体力（X为场上角色数，且X∈[4,+∞)）。',
         },

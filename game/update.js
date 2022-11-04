@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.16',
+	version:'1.9.120.17',
 	update:'1.9.120',
 	changeLog:[
 		'更新吴赵襄',
@@ -14,9 +14,5 @@ window.noname_update={
 		'game/game.js',
 		'character/shenhua.js',
 		'image/character/wuzhaoxiang.jpg',
-		'image/character/dachu.jpg',
-		'image/character/mushuihan.jpg',
-		'image/character/gaohuan.jpg',
-		'image/character/huanshi.jpg'
 	]
 };
