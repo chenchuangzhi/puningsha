@@ -27,6 +27,8 @@ window.noname_source_list=[
 	'character/rank.js',
 	'character/refresh.js',
 	'character/sb.js',
+	'character/daba.js',
+	'character/liaoyuan.js',
 	'character/shenhua.js',
 	'character/sp.js',
 	'character/sp2.js',

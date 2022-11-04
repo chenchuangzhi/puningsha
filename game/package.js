@@ -11,6 +11,8 @@ window.noname_package={
 		extra:'神将',		
 		mobile:'移动版',
 		sb:'谋攻篇',
+		daba:'大坝篇',
+		liaoyuan:'燎原百斩',
 		offline:'线下武将',
 		old:'怀旧',
 		diy:'DIY',
