@@ -15,8 +15,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 			chenshuai:['male','daba',4,['feigong','jianyu']],
             dachu:['male','liaoyuan2',4,['dunai','douguaishiming']],
             mushuihan:['male','daba',4,['guaishuai','guaichu','guaimin']],
-            gaohuan:['male','qun',4,['yanji']],
-           huanshi:['male','qun',4,['huanxie','yaowan']],
+            gaohuan:['male','qun',4,['yanji','xunhua']],
+            huanshi:['male','qun',4,['huanxie','yaowan']],
         },
         skill: {
             //于禁
@@ -743,6 +743,18 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 					}
                 },
             },
+            xunhua:{
+				mod:{
+					globalFrom:function(from,to,distance){
+						return distance-game.countPlayer(function(current){
+							return current.countCards('h') > 0;
+						});
+					},
+                    globalTo:function(from,to,distance){
+						return distance+1;
+					}
+				}
+			},
             huanxie: {
                 enable: 'phaseUse',
                 usable: 1,
@@ -841,7 +853,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sbjieyue_info: '结束阶段，你可以令一名其他角色获得1点护甲。然后其可以交给你一张牌。',
             gaohuan:'高欢',
             yanji:'严纪',
-            yanji_info:'出牌阶段开始时，你可以发动此技能，选择弃置一张装备牌里的马，然后让场上其他角色选择一张牌给你。',
+            yanji_info:'出牌阶段，你可以发动此技能，选择弃置一张装备牌里的马，然后让场上其他角色选择一张牌给你。',
+            xunhua:'驯化',
+            xunhua_info:'锁定技，你计算与其他角色的距离时-X。（X为场上拥有手牌数的玩家），其他玩家与你计算距离时+1',
             huanshi:'幻始',
             huanxie:'幻屑',
             huanxie_info:'【限定技】出牌阶段，你可以摸五张牌，然后弃置所有角色的所有手牌和装备牌',
