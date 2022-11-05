@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.19',
+	version:'1.9.120.20',
 	update:'1.9.120',
 	changeLog:[
-		'更新风笛',
+		'更新宇文泰',
 	],
 	files:[
 		'image/character/wuzhaoxiang.jpg',
@@ -16,14 +16,11 @@ window.noname_update={
 		'game/source.js',
 		'game/game.js',
 		'character/shenhua.js',
-<<<<<<< HEAD
 		'image/character/wuzhaoxiang.jpg',
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
 		'image/character/huanshi.jpg',
 		'image/character/yuwentai.jpg'
-=======
->>>>>>> 8149111db03433aac85d26a67178580191267a20
 	]
 };
