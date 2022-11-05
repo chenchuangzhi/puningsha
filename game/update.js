@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.20',
+	version:'1.9.120.21',
 	update:'1.9.120',
 	changeLog:[
-		'更新宇文泰',
+		'优化宇文泰技能',
 	],
 	files:[
 		'image/character/wuzhaoxiang.jpg',
