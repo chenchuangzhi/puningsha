@@ -7,8 +7,10 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
         character: {
             wuzhaoxiang:['female','daba',4,['wufanghun','wufuhan']],
             weizhaoxiang:['female','daba',4,['wufanghun','weifuhan']],
+            fengdi:["female","daba",4,["ark_pojun","ark_bitang"]],
         },
         skill: {
+            //赵襄
             wufuhan:{
                 audio:'fuhan',
                 trigger:{player:'phaseZhunbeiBegin'},
@@ -337,6 +339,143 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     target:'useCardToTargeted',
                 },
             },
+            //风笛
+            "ark_pojun":{
+                trigger:{player:"useCardToBegin"},
+                logTarget:"target",
+                filter:function (evt){
+                    return evt.target&&evt.card&&evt.card.name=="sha"&&evt.target.countCards('h');
+                },
+                check:function (evt,me){
+                    var noh=evt.target.hasSkillTag("noh",false,{
+                        target:me,
+                        cards:evt.target.get("h"),
+                    },true),att=get.attitude(me,evt.target);
+                    if(att>0&&noh===true)return true;
+                    if(att<0&&noh===true)return evt.target.countCards("h")/2>evt.target.hp;
+                    if(att<=0&&noh!==true)return true;
+                    return false;
+                },
+                content:function (){
+                    "step 0"
+                    var hs=trigger.target.getCards('h');
+                    hs.sort(function(a,b){
+                        return get.value(b,player)-get.value(a,player);
+                    });
+                    trigger.target.chooseCard([1,hs.length],"请分配你的手牌(选择的卡牌为第一份，未选择的为第二份)").set('ai',function(card){
+                        var rand=_status.event.rand;
+                        var list=_status.event.list;
+                        if(_status.event.att){
+                            if(ui.selected.cards.length>=Math.ceil(list.length/2)) return 0;
+                            var value=get.value(card);
+                            return 9-value;
+                        }
+                        if(ui.selected.cards.length>=Math.floor(list.length/2)) return 0;
+                        return (list.indexOf(card)%2==rand)?1:0;
+                    }).set('rand',(Math.random()<0.6)?1:0).set('list',hs).set('att',get.attitude(trigger.target,player)>0);
+                    "step 1"
+                    event.cards1=result.cards||[];
+                    event.cards2=trigger.target.getCards('h',function(card){
+                        return !event.cards1.contains(card);
+                    });
+                    "step 2"
+                    var num1=event.cards1.length,num2=event.cards2.length;
+                    event.videoId=lib.status.videoId++;
+                    var d=function (id,event){
+                        var dialog=ui.create.dialog("【"+get.translation(event.name)+"】",'forcebutton');
+                        dialog.addText('要弃置哪份牌？');
+                        var table=ui.create.div({
+                            margin:'2%',
+                            width:'80%',
+                            height:"120px",
+                            textAlign:'center',
+                            position:'relative',
+                            background:"rgba(0,0,0,0.3)",
+                            boxShadow:"rgba(0, 0, 0, 0.4) 0 0 0 1px",
+                            borderRadius:"6px",
+                            transition:"all 0.3s",
+                            overflow:"auto",
+                            whiteSpace:"nowrap"
+                        });
+                        table.classList.add('add-setting');
+                        table.addEventListener("wheel",function (e){
+                            e.preventDefault();
+                            table.scrollLeft+=e.deltaY;
+                        });
+                        Object.assign(dialog.style,{
+                            background:"rgba(0,0,0,0.2)",
+                            boxShadow:"rgba(0, 0, 0, 0.3) 0 0 0 1px",
+                            borderRadius:"6px",
+                        });
+                        table.innerHTML="<span style=position:fixed;left:35%;>第一份牌(共"+get.cnNumber(event.cards1.length)+"张)</span><br>";
+                        var table2=table.cloneNode(true);
+                        table2.innerHTML="<span style=position:fixed;left:35%;>第二份牌(共"+get.cnNumber(event.cards2.length)+"张)</span><br>";
+                        dialog.add(table);
+                        dialog.add(table2);
+                        for(var i of event.cards1)ui.create.button(null,"blank",table);
+                        for(var i of event.cards2)ui.create.button(null,"blank",table2);
+                        dialog.videoId=id;
+                    };
+                    if(player.isOnline())player.send(d,event.videoId,event);
+                    if(event.isMine())d(event.videoId,event);
+                    player.chooseControl("第一份","第二份").set('choice',num1>num2?0:1);
+                    "step 3"
+                    if(result.index>-1)trigger.target.discard(event["cards"+(result.index+1)]||[]);
+                    game.broadcastAll('closeDialog',event.videoId);
+                }
+            },
+
+            "ark_bitang":{
+                subSkill:{
+                    sha:{
+                        mod:{
+                            cardUsable:function(card){
+                                if(card.name=='sha') return Infinity;
+                            },
+                        },
+                        mark:true,
+                        intro:{
+                            content:"使用【杀】无次数限制",
+                        },
+                        sub:true,
+                    },
+                    a:{sub:true},
+                },
+                trigger:{
+                    player:"useCard",
+                },
+                forced:true,
+                filter:function(event,player,_,skill){
+                    return !player.hasSkill(skill+'_a')&&event.card.name=='sha'&&player.isPhaseUsing();
+                },
+                content:function(){
+                    'step 0'
+                    if(!player.hasSkill('ark_bitang_sha')){
+                        player.addTempSkill('ark_bitang_sha');
+                        event.finish();
+                    };
+                    'step 1'
+                    player.chooseToDiscard('he',{subtype:'equip1'},'请弃置一张武器牌或失去一点体力').set('ai',function (card){
+                        var player=get.player();
+                        return player.hasSha()?8-get.value(card):player.hp>2?0:100-get.value(card);
+                    });
+                    'step 2'
+                    if(!result.cards){
+                        player.loseHp();
+                        player.addTempSkill(event.name+'_a');
+                        player.removeSkill(event.name+'_sha',true);
+                    };
+                },
+                ai:{
+                    effect:{
+                        player:function (card,player,target){
+                            if(get.name(card)=='sha'&&player.hp<3&&player.hasSkill('ark_bitang_sha')&&!player.getEquip(1))return [0,-1,0,-1];
+                        },
+                    },
+                },
+            },
+
+
         },
         translate: {
             wuzhaoxiang: '吴赵襄',
@@ -347,6 +486,11 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             wufuhan_info:'限定技，回合开始时，你可以移去所有"梅影"标记并摸等量的牌，然后从X张吴势力武将牌中选择并获得至多两个技能（限定技、觉醒技、隐匿技、使命技、主公技除外）。若此时你是体力值最低的角色，你回复1点体力（X为场上角色数，且X∈[4,+∞)）。',
             weifuhan:'扶汉',
             weifuhan_info:'限定技，回合开始时，你可以移去所有"梅影"标记并摸等量的牌，然后从X张魏势力武将牌中选择并获得至多两个技能（限定技、觉醒技、隐匿技、使命技、主公技除外）。若此时你是体力值最低的角色，你回复1点体力（X为场上角色数，且X∈[4,+∞)）。',
+            fengdi:'风笛',
+            "ark_pojun":"破军",
+            "ark_pojun_info":"当你使用【杀】指定一个目标后，你可以令其将手牌分为两份，然后你弃置其中的一份。",
+            "ark_bitang":"闭膛",
+            "ark_bitang_info":"锁定技，你使用【杀】无次数限制，然后当你在出牌阶段使用超过一张杀后，须在该【杀】结算后选择一项：①弃置一张武器牌；②失去1点体力，且本回合此技能失效。",
         },
     };
 });

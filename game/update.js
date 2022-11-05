@@ -1,10 +1,13 @@
 window.noname_update={
-	version:'1.9.120.18',
+	version:'1.9.120.19',
 	update:'1.9.120',
 	changeLog:[
-		'更新魏赵襄',
+		'更新风笛',
 	],
 	files:[
+		'image/character/wuzhaoxiang.jpg',
+		'image/character/fengdi.jpg',
+		'image/character/weizhaoxiang.jpg',
 		'character/sb.js',
 		'character/daba.js',
 		'character/liaoyuan.js',
@@ -13,6 +16,5 @@ window.noname_update={
 		'game/source.js',
 		'game/game.js',
 		'character/shenhua.js',
-		'image/character/wuzhaoxiang.jpg',
 	]
 };
