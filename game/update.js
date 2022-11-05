@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.17',
+	version:'1.9.120.18',
 	update:'1.9.120',
 	changeLog:[
-		'更新吴赵襄',
+		'更新魏赵襄',
 	],
 	files:[
 		'character/sb.js',
