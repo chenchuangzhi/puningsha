@@ -858,7 +858,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             xunhua_info:'锁定技，你计算与其他角色的距离时-X。（X为场上拥有手牌数的玩家），其他玩家与你计算距离时+1',
             huanshi:'幻始',
             huanxie:'幻屑',
-            huanxie_info:'【限定技】出牌阶段，你可以摸五张牌，然后弃置所有角色的所有手牌和装备牌',
+            huanxie_info:'【限定技】出牌阶段，你可以摸五张牌，然后弃置其他所有角色的所有牌',
             yaowan:'药丸',
             yaowan_info:'回合结束阶段，若你没有"幻屑技能"，则你死亡',
         },

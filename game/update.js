@@ -1,10 +1,13 @@
 window.noname_update={
-	version:'1.9.120.16',
+	version:'1.9.120.19',
 	update:'1.9.120',
 	changeLog:[
-		'更新吴赵襄',
+		'更新风笛',
 	],
 	files:[
+		'image/character/wuzhaoxiang.jpg',
+		'image/character/fengdi.jpg',
+		'image/character/weizhaoxiang.jpg',
 		'character/sb.js',
 		'character/daba.js',
 		'character/liaoyuan.js',
@@ -13,11 +16,14 @@ window.noname_update={
 		'game/source.js',
 		'game/game.js',
 		'character/shenhua.js',
+<<<<<<< HEAD
 		'image/character/wuzhaoxiang.jpg',
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
 		'image/character/huanshi.jpg',
 		'image/character/yuwentai.jpg'
+=======
+>>>>>>> 8149111db03433aac85d26a67178580191267a20
 	]
 };
