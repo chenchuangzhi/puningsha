@@ -844,7 +844,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             yanji_info:'出牌阶段开始时，你可以发动此技能，选择弃置一张装备牌里的马，然后让场上其他角色选择一张牌给你。',
             huanshi:'幻始',
             huanxie:'幻屑',
-            huanxie_info:'【限定技】出牌阶段，你可以摸五张牌，然后弃置所有角色的所有手牌和装备牌',
+            huanxie_info:'【限定技】出牌阶段，你可以摸五张牌，然后弃置其他所有角色的所有牌',
             yaowan:'药丸',
             yaowan_info:'回合结束阶段，若你没有"幻屑技能"，则你死亡',
         },
