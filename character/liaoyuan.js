@@ -5,58 +5,10 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
         connect: true,
         character: {
             // huanshi3:['male','liaoyuan2',4,['huanxie3','yaowan3']],
-            yuwentai:['male','liaoyuan2',4,['wuzhuang','woquan']]
+            yuwentai:['male','liaoyuan2',4,['wuzhuang','woquan']],
+            chengyaojin:['male','liaoyuan2',5,['jifen','rexue1']]
         },
         skill: {
-            huanxie3: {
-                enable: 'phaseUse',
-                usable: 1,
-                skillAnimation: true,
-                animationColor: 'metal',
-                content: function () {
-                    "step 0"
-                    event.delay = false;
-                    event.targets = game.filterPlayer();
-                    event.targets.remove(player);
-                    event.targets.sort(lib.sort.seat);
-                    player.line(event.targets, 'green');
-                    event.targets2 = event.targets.slice(0);
-                    event.targets3 = event.targets.slice(0);
-                    "step 1"
-                    player.draw(5);
-                    player.removeSkill('huanxie');
-                    "step 2"
-                    if (event.targets.length) {
-                        event.current = event.targets.shift()
-                        if (event.current.countCards('e')) event.delay = true;
-                        event.current.discard(event.current.getCards('e')).delay = false;
-                    }
-                    "step 3"
-                    if (event.delay) game.delay(0.5);
-                    event.delay = false;
-                    if (event.targets.length) event.goto(2);
-                    "step 4"
-                    if (event.targets3.length) {
-                        var target = event.targets3.shift();
-                        target.chooseToDiscard(100, 'h', true).delay = false;
-                        if (target.countCards('h')) event.delay = true;
-                    }
-                    "step 5"
-                    if (event.delay) game.delay(0.5);
-                    event.delay = false;
-                    if (event.targets3.length) event.goto(4);
-                }
-            },
-            yaowan3: {
-                forced: true,
-                trigger:{player:'phaseJieshuBegin'},
-                filter: function (event, player,) {
-                    return !player.hasSkill('huanxie'); //不包含自己,则其他角色
-                },
-                content:function(){
-                    player.die(); // 添加临时技能，直到回合结束
-                },
-            },
             wuzhuang:{
                 forced:true,
                 group:['wuzhuang1','wuzhuang2_1','wuzhuang2_2','wuzhuang3','wuzhuang4','woquan0']
@@ -195,22 +147,43 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 						if(get.position(card)=='e') return false;
 					},
 				},
-            }
-            
+            },
+            rexue1:{
+                enable:"phaseUse",//出牌阶段发动
+                usable:1,
+                filter:function(event,player){
+                    return player.hp !== player.maxHp
+                },
+                content:function(){
+                    player.recover(player.hp)
+                },
+            },
+            jifen:{
+                trigger:{source:'damageBegin1'},
+                forced:true,
+                filter:function(event,player){
+                    return player.hp !== player.maxHp
+                },
+                content:function(){
+                    if(trigger.card && trigger.card.name === 'sha'){
+                        trigger.num = (player.maxHp - player.hp);
+                    }
+                }
+            },
         },
         translate: {
-            huanshi3:'幻始3',
-            huanxie3:'幻屑',
-            huanxie3_info:'【限定技】出牌阶段，你可以摸五张牌，然后弃置所有角色的所有手牌和装备牌',
-            yaowan3:'药丸',
-            yaowan3_info:'回合结束阶段，若你没有"幻屑技能"，则你死亡',
             yuwentai:"宇文泰",
             wuzhuang:'武装',
             wuzhuang3:'躲避',
             woquan0:'武',
             woquan:'握权',
             wuzhuang_info:'锁定技。当你装备区有武器时，你的杀伤害+1;当你装备有防具时，若你没有护甲，你获得一点护甲;当你装备区有马时，你成为杀的目标可以进行一次判定，若有防御马,则你判断为♠️时，目标取消，若有进攻马,判定为♣️时,目标取消;当你装备区宝物时，回合开始阶段你摸一张牌。',
-            woquan_info:'觉醒技。当你装备过3种不同类型的装备牌时。你装备区内的牌不能被其他角色弃置'
+            woquan_info:'觉醒技。当你装备过3种不同类型的装备牌时。你装备区内的牌不能被其他角色弃置',
+            chengyaojin:"程咬金",
+            rexue1:"热血",
+            rexue1_info:"主动技。每回合限一次，当你受伤时，在出牌阶段使用，你最多可以回复当前剩余体力值对应数量的体力值",
+            jifen:"激奋",
+            jifen_info:"锁定技。当你受伤时，你使用杀造成的伤害为x（x为你已损失的体力值）",
         },
     };
 });

@@ -1,10 +1,11 @@
 window.noname_update={
-	version:'1.9.120.21',
+	version:'1.9.120.22',
 	update:'1.9.120',
 	changeLog:[
-		'优化宇文泰技能',
+		'新增程咬金',
 	],
 	files:[
+		'image/character/chengyaojin.jpg',
 		'image/character/wuzhaoxiang.jpg',
 		'image/character/fengdi.jpg',
 		'image/character/weizhaoxiang.jpg',
@@ -16,7 +17,6 @@ window.noname_update={
 		'game/source.js',
 		'game/game.js',
 		'character/shenhua.js',
-		'image/character/wuzhaoxiang.jpg',
 		'image/character/dachu.jpg',
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
