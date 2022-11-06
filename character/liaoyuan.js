@@ -150,6 +150,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				},
             },
             rexue1:{
+                forced:true,
                 trigger:{
                     player:"phaseJieshuBegin"
                 },

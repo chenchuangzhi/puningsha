@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.24',
+	version:'1.9.120.25',
 	update:'1.9.120',
 	changeLog:[
-		'新增增施尔凯特',
+		'热血自动发动',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
