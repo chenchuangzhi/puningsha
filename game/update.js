@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.27',
+	version:'1.9.120.28',
 	update:'1.9.120',
 	changeLog:[
 		'测试ui中，请勿更新',
