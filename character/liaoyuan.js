@@ -197,6 +197,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     "step 1"
                     player.addSkill('huanghun1')
                     player.addSkill('huanghun2')
+                    player.addSkill('huanghun3')
                     player.addSkill('qinggang_skill');
                     "step 2"
                     player.gainMaxHp(5)
@@ -268,7 +269,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 content:function(){
                     player.loseHp(player.storage['huanghun1'])
                     player.storage['huanghun1']++
-                }
+                },
             },
             huanghun2:{
                  mod:{
@@ -277,7 +278,16 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                         }
                 },
             },
-
+            huanghun3:{
+                mod:{
+                    cardname:function(card,player,name){
+						if(card.dataset.cardType=='basic') return 'sha';
+					},
+					cardnature:function(card,player){
+						if(card.dataset.cardType=='basic') return false;
+					},
+                },
+            },
             // 杀无视防具
             qinggang_skill:{
 				equipSkill:true,
@@ -348,7 +358,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             jifen_info:"锁定技。当你受伤时，你使用杀造成的伤害为x（x为你已损失的体力值）",
             shierkaite:"史尔特尔",
             huanghun:"黄昏",
-            huanghun_info:"限定技，出牌阶段，你可以将体力值回满并加5点体力上限。若如此做，之后你使用杀无距离限制且无视防具，每次回合结束阶段，失去x点体力。（x为你使用该技能后的回合数）",
+            huanghun_info:"限定技，出牌阶段，你可以将体力值回满并加5点体力上限。若如此做，之后你使用杀无距离限制且无视防具，且你的基本牌均视为杀，每次回合结束阶段，失去x点体力。（x为你使用该技能后的回合数）",
             yujin1:"余烬",
             yujin12:"余烬",
             yujin11:"余",

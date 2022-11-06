@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.25',
+	version:'1.9.120.26',
 	update:'1.9.120',
 	changeLog:[
-		'热血自动发动',
+		'基本牌当杀',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
