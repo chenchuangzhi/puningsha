@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.34',
+	version:'1.9.120.35',
 	update:'1.9.120',
 	changeLog:[
-		'优化百变怪技能描述 && 和使用技能提示',
+		'秦宜禄屏蔽',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
@@ -12,6 +12,7 @@ window.noname_update={
 		'image/character/weizhaoxiang.jpg',
 		'image/character/shierkaite.jpg',
 		'character/sb.js',
+		'character/sp2.js',
 		'character/daba.js',
 		'character/liaoyuan.js',
 		'game/config.js',

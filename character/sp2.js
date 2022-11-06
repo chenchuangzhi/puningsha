@@ -15,7 +15,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			dc_jiling:['male','qun',4,['dcshuangren']],
 			caohua:['female','wei',3,['caiyi','guili']],
 			dc_liuyu:['male','qun',3,['dcsuifu','dcpijing']],
-			qinyilu:['male','qun',3,['piaoping','tuoxian','chuaili']],
+			// qinyilu:['male','qun',3,['piaoping','tuoxian','chuaili']],
 			zhangxuan:['female','wu',4,['tongli','shezang']],
 			dc_yanghu:['male','wei',3,['dcdeshao','dcmingfa']],
 			dc_huangzu:['male','qun',4,['dcjinggong','dcxiaojuan']],
