@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.26',
+	version:'1.9.120.27',
 	update:'1.9.120',
 	changeLog:[
-		'基本牌当杀',
+		'测试ui中，请勿更新',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
