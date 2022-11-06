@@ -7,7 +7,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             // huanshi3:['male','liaoyuan2',4,['huanxie3','yaowan3']],
             yuwentai:['male','liaoyuan2',4,['wuzhuang','woquan']],
             chengyaojin:['male','liaoyuan2',5,['jifen','rexue1']],
-            shierkaite:['female','liaoyuan2',4,['huanghun','yujin1']]
+            shierkaite:['female','liaoyuan2',4,['huanghun','yujin1']],
+            baibianguai:['male','liaoyuan2',4,['baibian']]
         },
         skill: {
             wuzhuang:{
@@ -343,6 +344,25 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				marktext:'※',
 				intro:{content:'当前防具技能已失效'},
 			},
+            baibian:{
+                forced:true,
+                trigger:{
+                    player:["phaseZhunbeiBegin","phaseJieshuBegin"]
+                },
+                content:function(){
+                    "step 0"
+                    if(player.skills && player.skills.length > 1){
+                        let s = player.skills.slice(1)
+                        player.removeSkill(s)
+                    }
+                    "step 1"
+                    const pl = game.players.filter( item=> item!==player )
+                    let i = Math.floor((Math.random()*pl.length))
+                    let p = pl[i]
+                    prompt('百变怪化身为了'+get.translation(p.name))
+                    player.addSkill(p.skills)
+                }
+            }
         },
         translate: {
             yuwentai:"宇文泰",
@@ -363,7 +383,10 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             yujin1:"余烬",
             yujin12:"余烬",
             yujin11:"余",
-            yujin1_info:"锁定技，当你进入频死状态后，你的体力值一直至少为1，有玩家回合结束后，你获得一个【余】标记，当【余】标记数为8时,你死亡。"
+            yujin1_info:"锁定技，当你进入频死状态后，你的体力值一直至少为1，有玩家回合结束后，你获得一个【余】标记，当【余】标记数为8时,你死亡。",
+            baibianguai:"百变怪",
+            baibian:"百变",
+            baibian_info:"回合开始时，你必须选择场上任意一个角色，获得他的所有技能。"
         },
     };
 });
