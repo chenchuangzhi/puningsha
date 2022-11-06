@@ -549,9 +549,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
             },
 			feigong:{
-				skillAnimation: true,
                 animationStr: '非攻',
-				animationColor: 'blue',
 				trigger: {  source:'damageBefore' },
 				content: function () {
                     'step 0'
@@ -578,9 +576,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				}
 			},
 			jianyu:{
-				skillAnimation: true,
                 animationStr: '箭雨',
-				animationColor: 'blue',
 				trigger: {  player:'phaseUseBegin' },
 				direct:true,
                 filter:function(event,player){
@@ -605,10 +601,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				},
 			},
             dunai:{
-                // forced:true,  //锁定技
-                skillAnimation: true,  //有动画
                 animationStr: '毒奶',
-                animationColor: 'red',
                 intro:{//标记介绍
                     name2:'毒奶',
                     content:'已有#层毒'
@@ -742,6 +735,11 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 						player.gain(result.cards,target,'giveAuto');
 					}
                 },
+                ai:{
+                    result:{//收益(只有主动技可以写)
+                        player:1
+                    },
+                }
             },
             xunhua:{
 				mod:{

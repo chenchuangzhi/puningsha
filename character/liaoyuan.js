@@ -6,7 +6,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
         character: {
             // huanshi3:['male','liaoyuan2',4,['huanxie3','yaowan3']],
             yuwentai:['male','liaoyuan2',4,['wuzhuang','woquan']],
-            chengyaojin:['male','liaoyuan2',5,['jifen','rexue1']]
+            chengyaojin:['male','liaoyuan2',5,['jifen','rexue1']],
+            shierkaite:['fmale','liaoyuan2',4,['huanghun','yujin1']]
         },
         skill: {
             wuzhuang:{
@@ -149,13 +150,15 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 				},
             },
             rexue1:{
-                enable:"phaseUse",//出牌阶段发动
-                usable:1,
-                filter:function(event,player){
-                    return player.hp !== player.maxHp
+                trigger:{
+                    player:"phaseJieshuBegin"
                 },
                 content:function(){
-                    player.recover(player.hp)
+                    if(player.hp < 3){
+                        player.recover()
+                    }else{
+                        player.loseHp()
+                    }
                 },
             },
             jifen:{
@@ -170,6 +173,153 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     }
                 }
             },
+            huanghun:{
+                unique:true,//特殊技(限定技和觉醒技都是)
+                limited:true,//限定技
+                mark:true,//标记
+                intro:{//标记介绍
+                    content:"limited",//内容:未发动
+                },
+                skillAnimation:true,//有技能动画
+                animationColor:'red',
+                init:function(player){//初始化
+                    player.storage['huanghun']=false;
+                },
+                filter:function(event,player){//发动限制条件
+                    return player.storage['huanghun']==false;//你没发动过这个技能
+                },
+                enable:"phaseUse",//出牌阶段发动
+                content:function(){
+                    "step 0"//第0步(必须从0开始)
+                    player.storage['huanghun']=true;//技能发动过
+                    player.awakenSkill("huanghun");//技能文本变灰(失去技能，标记消失)
+                    "step 1"
+                    player.addSkill('huanghun1')
+                    player.addSkill('huanghun2')
+                    player.addSkill('qinggang_skill');
+                    "step 2"
+                    player.gainMaxHp(5)
+                    player.recover(player.maxHp)
+                }
+            },
+            yujin1:{
+                forced:true,
+                trigger:{
+                    player:"dyingBegin"
+                },
+                filter:function(event,player){
+                    return !player.hasSkill('yujin11')
+                },
+                content:function(){
+                    player.recover(1-player.hp)
+                    player.addSkill('yujin11')
+                    player.addSkill('yujin12')
+                }
+            },
+            yujin11:{
+                trigger:{
+                    global:"phaseJieshuBegin"
+                },
+                forced:true,
+                intro:{//标记介绍
+                    name2:'余',
+                    content:function(storage,player){
+                        return `还有${8-player.countMark('yujin11')}个角色回合后你会死亡`;
+                    }
+                },
+                content:function(){
+                    "step 0"
+                    player.addMark('yujin11')
+                    "step 1"
+                    if(player.countMark('yujin11') > 7){
+                        player.die()
+                    }
+                }
+            },
+            yujin12:{
+                forced:true,
+                trigger:{
+                    player:"dyingBegin"
+                },
+                content:function(){
+                    player.recover(1-player.hp)
+                }
+            },
+            huanghun1:{
+                forced:true,
+                trigger:{
+                    player:"phaseJieshuBegin"
+                },
+                init:function(player){
+                    player.storage['huanghun1'] = 1
+                },
+                content:function(){
+                    player.loseHp(player.storage['huanghun1'])
+                    player.storage['huanghun1']++
+                }
+            },
+            huanghun2:{
+                 mod:{
+                        targetInRange:function(card){
+                            if(card.name=='sha') return true;
+                        }
+                },
+            },
+
+            // 杀无视防具
+            qinggang_skill:{
+				equipSkill:true,
+				audio:true,
+				trigger:{
+					player:'useCardToPlayered',
+				},
+				filter:function(event){
+					return event.card.name=='sha';
+				},
+				forced:true,
+				logTarget:'target',
+				content:function(){
+					trigger.target.addTempSkill('qinggang2');
+					trigger.target.storage.qinggang2.add(trigger.card);
+					trigger.target.markSkill('qinggang2');
+				},
+				ai:{
+					unequip_ai:true,
+					skillTagFilter:function(player,tag,arg){
+						if(arg&&arg.name=='sha') return true;
+						return false;
+					}
+				}
+			},
+            // 牌无视防具
+			qinggang2:{
+				firstDo:true,
+				ai:{unequip2:true},
+				init:function(player,skill){
+					if(!player.storage[skill]) player.storage[skill]=[];
+				},
+				onremove:true,
+				trigger:{
+					player:['damage','damageCancelled','damageZero'],
+					source:['damage','damageCancelled','damageZero'],
+					target:['shaMiss','useCardToExcluded','useCardToEnd'],
+					global:['useCardEnd'],
+				},
+				charlotte:true,
+				filter:function(event,player){
+					return player.storage.qinggang2&&event.card&&player.storage.qinggang2.contains(event.card)&&(event.name!='damage'||event.notLink());
+				},
+				silent:true,
+				forced:true,
+				popup:false,
+				priority:12,
+				content:function(){
+					player.storage.qinggang2.remove(trigger.card);
+					if(!player.storage.qinggang2.length) player.removeSkill('qinggang2');
+				},
+				marktext:'※',
+				intro:{content:'当前防具技能已失效'},
+			},
         },
         translate: {
             yuwentai:"宇文泰",
@@ -181,9 +331,16 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             woquan_info:'觉醒技。当你装备过3种不同类型的装备牌时。你装备区内的牌不能被其他角色弃置',
             chengyaojin:"程咬金",
             rexue1:"热血",
-            rexue1_info:"主动技。每回合限一次，当你受伤时，在出牌阶段使用，你最多可以回复当前剩余体力值对应数量的体力值",
+            rexue1_info:"锁定技。你的回合结束时，若你的体力值小于3，则你回复一点体力值，若你的体力值大于3则你失去一点体力值",
             jifen:"激奋",
             jifen_info:"锁定技。当你受伤时，你使用杀造成的伤害为x（x为你已损失的体力值）",
+            shierkaite:"史尔特尔",
+            huanghun:"黄昏",
+            huanghun_info:"限定技，出牌阶段，你可以将体力值回满并加5点体力上限。若如此做，之后你使用杀无距离限制且无视防具，每次回合结束阶段，失去x点体力。（x为你使用该技能后的回合数）",
+            yujin1:"余烬",
+            yujin12:"余烬",
+            yujin11:"余",
+            yujin1_info:"锁定技，当你进入频死状态后，你的体力值一直至少为1，有玩家回合结束后，你获得一个【余】标记，当【余】标记数为8时,你死亡。"
         },
     };
 });

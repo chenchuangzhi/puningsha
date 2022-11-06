@@ -1,14 +1,15 @@
 window.noname_update={
-	version:'1.9.120.22',
+	version:'1.9.120.23',
 	update:'1.9.120',
 	changeLog:[
-		'新增程咬金',
+		'新增增施尔凯特',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
 		'image/character/wuzhaoxiang.jpg',
 		'image/character/fengdi.jpg',
 		'image/character/weizhaoxiang.jpg',
+		'image/character/shierkaite.jpg',
 		'character/sb.js',
 		'character/daba.js',
 		'character/liaoyuan.js',
