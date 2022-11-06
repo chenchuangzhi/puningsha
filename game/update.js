@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.35',
+	version:'1.9.120.36',
 	update:'1.9.120',
 	changeLog:[
-		'秦宜禄屏蔽',
+		'百变怪时间调整',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',

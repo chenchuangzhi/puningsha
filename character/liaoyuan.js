@@ -360,6 +360,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     let i = Math.floor((Math.random()*pl.length))
                     let p = pl[i]
                     var createDialog=function(player){
+                        if(_status.connectMode) lib.configOL.choose_timeout='2';
 						var str=get.translation(player)+'变身成了'+get.translation(p);
 						ui.create.dialog(str);
 					};
