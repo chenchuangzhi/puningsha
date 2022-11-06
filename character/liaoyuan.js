@@ -315,6 +315,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 			},
             // 牌无视防具
 			qinggang2:{
+                forced:true,
 				firstDo:true,
 				ai:{unequip2:true},
 				init:function(player,skill){
