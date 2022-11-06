@@ -22,6 +22,7 @@ window.noname_update={
 		'image/character/mushuihan.jpg',
 		'image/character/gaohuan.jpg',
 		'image/character/huanshi.jpg',
-		'image/character/yuwentai.jpg'
+		'image/character/yuwentai.jpg',
+		'extension/十周年UI/*',
 	]
 };
