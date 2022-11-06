@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.23',
+	version:'1.9.120.24',
 	update:'1.9.120',
 	changeLog:[
 		'新增增施尔凯特',

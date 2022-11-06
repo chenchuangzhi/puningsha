@@ -199,7 +199,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     player.addSkill('qinggang_skill');
                     "step 2"
                     player.gainMaxHp(5)
-                    player.recover(player.maxHp)
+                    player.recover(10)
                 },
                 ai:{
                     unequip:true,
