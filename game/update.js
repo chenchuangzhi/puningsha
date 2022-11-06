@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.29',
+	version:'1.9.120.30',
 	update:'1.9.120',
 	changeLog:[
-		'测试ui中，请勿更新',
+		'更改性别',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
@@ -23,6 +23,5 @@ window.noname_update={
 		'image/character/gaohuan.jpg',
 		'image/character/huanshi.jpg',
 		'image/character/yuwentai.jpg',
-		'extension/十周年UI/*'
 	]
 };

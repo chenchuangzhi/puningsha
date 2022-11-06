@@ -7,7 +7,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             // huanshi3:['male','liaoyuan2',4,['huanxie3','yaowan3']],
             yuwentai:['male','liaoyuan2',4,['wuzhuang','woquan']],
             chengyaojin:['male','liaoyuan2',5,['jifen','rexue1']],
-            shierkaite:['fmale','liaoyuan2',4,['huanghun','yujin1']]
+            shierkaite:['female','liaoyuan2',4,['huanghun','yujin1']]
         },
         skill: {
             wuzhuang:{
