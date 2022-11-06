@@ -42166,10 +42166,10 @@
 						var li3=document.createElement('li');
 						var trimurl=function(str){
 							if(str==lib.updateURLS.github){
-								return 'GitHub（Show-K）';
+								return 'GitHub';
 							}
 							if(str==lib.updateURLS.coding){
-								return 'Coding（Show-K）'
+								return 'Coding';
 							}
 							var index;
 							index=str.indexOf('://');
@@ -50892,7 +50892,7 @@
 				url+='/';
 			}
 			if(master!='nodev'){
-				return url;
+				return url+'master/';
 			}
 			else{
 				return url+'v'+lib.version+'/';
