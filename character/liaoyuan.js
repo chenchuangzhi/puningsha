@@ -359,7 +359,11 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     const pl = game.players.filter( item=> item!==player )
                     let i = Math.floor((Math.random()*pl.length))
                     let p = pl[i]
-                    prompt('百变怪化身为了'+get.translation(p.name))
+                    var createDialog=function(player){
+						var str=get.translation(player)+'变身成了'+get.translation(p);
+						ui.create.dialog(str);
+					};
+                    game.broadcastAll(createDialog,player)
                     player.addSkill(p.skills)
                 }
             }
@@ -386,7 +390,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             yujin1_info:"锁定技，当你进入频死状态后，你的体力值一直至少为1，有玩家回合结束后，你获得一个【余】标记，当【余】标记数为8时,你死亡。",
             baibianguai:"百变怪",
             baibian:"百变",
-            baibian_info:"回合开始时，你必须选择场上任意一个角色，获得他的所有技能。"
+            baibian_info:"回合开始前和回合结束后，你随机变身为场上存活的一个角色。"
         },
     };
 });

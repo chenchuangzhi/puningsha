@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.33',
+	version:'1.9.120.34',
 	update:'1.9.120',
 	changeLog:[
-		'更新百变怪 && 削弱高欢',
+		'优化百变怪技能描述 && 和使用技能提示',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
