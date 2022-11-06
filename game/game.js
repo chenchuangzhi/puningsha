@@ -540,8 +540,8 @@
 						init:'coding',
 						unfrequent:true,
 						item:{
-							coding:'Coding（Show-K）',
-							github:'GitHub（Show-K）',
+							coding:'Github Proxy',
+                            github:'GitHub',
 						},
 						onclick:function(item){
 							game.saveConfig('update_link',item);
@@ -53986,7 +53986,7 @@
 			}
 		},
 		groups:function(){
-			return ['wei','shu','wu','qun','jin','western','key','daba','liaoyuan2'];
+			return ['wei','shu','wu','qun','jin','western','key'];
 		},
 		types:function(){
 			var types=[];
