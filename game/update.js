@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.28',
+	version:'1.9.120.29',
 	update:'1.9.120',
 	changeLog:[
 		'测试ui中，请勿更新',
@@ -23,6 +23,6 @@ window.noname_update={
 		'image/character/gaohuan.jpg',
 		'image/character/huanshi.jpg',
 		'image/character/yuwentai.jpg',
-		'extension/十周年UI/'
+		'extension/十周年UI/*'
 	]
 };
