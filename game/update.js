@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.31',
+	version:'1.9.120.32',
 	update:'1.9.120',
 	changeLog:[
-		'更改性别',
+		'尝试解除联机限制',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
