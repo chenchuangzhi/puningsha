@@ -200,6 +200,17 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     "step 2"
                     player.gainMaxHp(5)
                     player.recover(player.maxHp)
+                },
+                ai:{
+                    unequip:true,
+                    result:{
+                        player:function(player){
+                            if(player.hp < 3){
+                                return 1
+                            }
+                            return 0
+                        }
+                    }
                 }
             },
             yujin1:{
