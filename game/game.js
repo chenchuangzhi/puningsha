@@ -9409,7 +9409,7 @@
 					localStorage.removeItem(lib.configprefix+'background');
 				}
 			},
-			parsex:function(func){
+			parsey:function(func){
 				var k;
 				var str='(';
 				str+=func.toString();
@@ -9427,7 +9427,7 @@
 				str+='})';
 				return str;
 			},
-			parse:function(func){
+			parsex:function(func){
 				var str=func.toString();
 				str=str.slice(str.indexOf('{')+1);
 				if(str.indexOf('step 0')==-1){
@@ -16985,6 +16985,28 @@
 			},
 			player:{
 				//新函数
+                				changeZhuanhuanji:function(skill){
+                					var player=this,info=get.info(skill),zhuanhuan=info.zhuanhuanji;
+                					if(typeof zhuanhuan=='function') zhuanhuan(player,skill);
+                					else if(zhuanhuan=='number') player.addMark(skill,1,false);
+                					else player.storage[skill]=!player.storage[skill];
+                					game.broadcastAll(function(player,skill){
+                						player.$changeZhuanhuanji(skill);
+                					},player,skill);
+                				},
+                				$changeZhuanhuanji:function(skill){
+                					var mark=this.marks[skill];
+                					if(mark){
+                						if(mark.firstChild.reversed){
+                							mark.firstChild.reversed=false;
+                							mark.firstChild.style.transform='none';
+                						}
+                						else{
+                							mark.firstChild.reversed=true;
+                							mark.firstChild.style.transform='rotate(180deg)';
+                						}
+                					}
+                				},
 				setSeatNum:function(num){
 					_status.seatNumSettled=true;
 					game.broadcastAll(function(player,num){
@@ -25495,11 +25517,11 @@
 				},
 				setContent:function(name){
 					if(typeof name=='function'){
-						this.content=lib.init.parse(name);
+						this.content=lib.init.parsex(name);
 					}
 					else{
 						if(!lib.element.content[name]._parsed){
-							lib.element.content[name]=lib.init.parse(lib.element.content[name]);
+							lib.element.content[name]=lib.init.parsex(lib.element.content[name]);
 							lib.element.content[name]._parsed=true;
 						}
 						this.content=lib.element.content[name];
