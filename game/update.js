@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.40',
+	version:'1.9.120.41',
 	update:'1.9.120',
 	changeLog:[
 		'新增能天使',
