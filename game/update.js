@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.44',
+	version:'1.9.120.45',
 	update:'1.9.120',
 	changeLog:[
-		'华法琳测试',
+		'本地大更新，华法琳目前没有实现',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
