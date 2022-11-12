@@ -25,7 +25,7 @@ body {
 	overflow: hidden;
 	text-rendering: optimizeLegibility;
 	transform-origin: top left;
-	font-family: 'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei','Suits',Helvetica,Arial,sans-serif;
+	font-family: 'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei',Helvetica,Arial,sans-serif
 }
 
 div {
@@ -348,9 +348,9 @@ table {
 	pointer-events: none;
 }
 #splash>div {
-	width: 100px;
-	height: 300px;
-	top: calc(50% - 150px);
+	width: 200px;
+	height: 348px;
+	top: calc(50% - 180px);
 	margin-left: 10px;
 	margin-right: 10px;
 	position: relative;
@@ -382,7 +382,7 @@ table {
 }
 #splash>div>.splashtext {
 	font-family: 'huangcao','xinwei';
-	font-size: 50px;
+	font-size: 0px;
 	position: absolute;
 	right: 7px;
 	bottom: 7px;
@@ -397,14 +397,14 @@ table {
 }
 
 #splash.slim>div>.splashtext{
-	right: 5px;
-	bottom: 5px;
+	right: 0px;
+	bottom: 240px;
 }
 #splash.slim>div>.avatar{
-	width: 90px;
-	height: calc(100% - 10px);
-	left: 5px;
-	top: 5px;
+	width: 200px;
+	height: calc(100% - 0px);
+	left: 0px;
+	top: 0px;
 }
 
 #splash[data-radius_size='reduce']>div>div,
@@ -1156,7 +1156,7 @@ body>.background.land {
 	background-size:cover;
 }
 
-.popup:not(.guanxing) {
+.popup {
 	padding: 5px;
 }
 .forcehide {
@@ -1295,10 +1295,9 @@ body>.background.land {
 	/*overflow: hidden;*/
 }
 .card>.info {
-	top: 5.2px;
-	right: 7px;
+	right: 6px;
+	top: 9px;
 	white-space: nowrap;
-	word-spacing: -0.1em;
 }
 .card>.range {
 	bottom: 5px;
@@ -1448,11 +1447,6 @@ div:not(.handcards)>.card>.info>span,
 .button.card.button>.intro {
 	top: 69px;
 }
-.buttons.guanxing {
-	min-height: 106px;
-	width: 90%;
-	margin: 0px;
-}
 .buttons.smallzoom {
 	display: block;
 	zoom: 0.65
@@ -1469,10 +1463,10 @@ div:not(.handcards)>.card>.info>span,
 	margin-left: 0px;
 	margin-right: 0px;
 }
-.buttons.scrollbuttons:not(.popup) .button:first-child{
+.buttons.scrollbuttons .button:first-child{
 	margin-left: 12px;
 }
-.buttons.scrollbuttons:not(.popup) .button:last-child{
+.buttons.scrollbuttons .button:last-child{
 	margin-right: 12px;
 }
 /*.buttons.smallzoom .card.button>.name,
@@ -1725,6 +1719,7 @@ div:not(.handcards)>.card>.info>span,
 	height: 100%;
 	top: 0;
 }
+
 .content>table {
 	width: 100%
 }
@@ -1769,10 +1764,6 @@ div:not(.handcards)>.card>.info>span,
 .content {
 	display: block;
 	width: 100%;
-	font-size: 0px;
-}
-.content>*{
-	font-size: 16px;
 }
 .dialog:not(.popped) .content {
 	vertical-align: top;
@@ -1844,10 +1835,6 @@ div:not(.handcards)>.card>.info>span,
 	padding-top: 8px;
 	font-size: 20px;
 	display: block;
-}
-.caption.choosetomove{
-	margin: 5px;
-	padding: 0px !important;
 }
 .caption:only-child {
 	padding-bottom: 8px;
@@ -1986,10 +1973,6 @@ div:not(.handcards)>.card>.info>span,
 	border: 1px solid rgba(39, 79, 7, 1);
 	box-shadow: rgba(0,0,0,0.2) 1px -1px 2px inset, rgba(255,255,255,0.15) -1px 1px 5px inset;
 }
-.button.newstyle>.hp>.shield{
-	background: rgba(63, 119, 173,1);
-	border: 1px solid rgba(31, 82, 131, 1);
-}
 .button.newstyle>.hp>div.text{
 	background: none !important;
 	box-shadow: none !important;
@@ -2065,9 +2048,6 @@ div:not(.handcards)>.card>.info>span,
 #control>div {
 	position: absolute;
 	left: 50%;
-}
-#arena.choose-to-move>#control{
-	top: calc(80%) !important;
 }
 /*--------角色--------*/
 .player>.avatar>.action {
@@ -2145,7 +2125,6 @@ div:not(.handcards)>.card>.info>span,
 	width: 100%;
 	font-size: 12px;
 	text-align: center;
-	white-space: nowrap;
 	/*opacity: 0;*/
 }
 .player:hover>.nameol {
@@ -2625,35 +2604,31 @@ div:not(.handcards)>.card>.info>span,
 	box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
 	border: 1px solid #fff;
 }
-.button .hp>.shield {
-	background: rgba(63, 119, 173,1);
-	border: 1px solid rgba(63, 119, 173, 1);
-}
-.hp[data-condition="high"]>div:not(.lost):not(.shield) {
+.hp[data-condition="high"]>div:not(.lost) {
 	background: rgba(57, 123, 4,1);
 	border: 1px solid rgba(39, 79, 7, 1);
 }
-.hp[data-condition="mid"]>div:not(.lost):not(.shield) {
+.hp[data-condition="mid"]>div:not(.lost) {
 	background: rgba(166, 140, 6,1);
 	border: 1px solid rgba(79, 64, 7, 1);
 }
-.hp[data-condition="low"]>div:not(.lost):not(.shield) {
+.hp[data-condition="low"]>div:not(.lost) {
 	background: rgba(148, 27, 27,1);
 	border: 1px solid rgba(79, 7, 7, 1);
 }
-.hp.actcount>div:not(.lost):not(.shield) {
+.hp.actcount>div:not(.lost) {
 	background: rgba(63, 119, 173,1);
 	border: 1px solid rgba(31, 82, 131, 1);
 }
-.treasure>.hp>div:not(.lost):not(.shield) {
+.treasure>.hp>div:not(.lost) {
 	background: rgba(63, 119, 173,1) !important;
 	border: 1px solid rgba(31, 82, 131, 1) !important;
 }
-.hp.actcount>div.overflow:not(.lost):not(.shield) {
+.hp.actcount>div.overflow:not(.lost) {
 	background: rgb(154, 154, 154);
 	border: 1px solid rgb(109, 109, 109);
 }
-.hp.actcount.overflow2>div.overflow:not(.lost):not(.shield) {
+.hp.actcount.overflow2>div.overflow:not(.lost) {
 	background: rgb(173, 129, 63);
 	border: 1px solid rgb(131, 109, 31);
 }
@@ -2663,16 +2638,11 @@ div:not(.handcards)>.card>.info>span,
 	filter: grayscale(1);
 	-webkit-filter: grayscale(1);
 }
-
 .hp>.lost {
 	background: rgba(57, 123, 4,1);
 	border: 1px solid rgba(39, 79, 7, 1);
 	filter: grayscale(1);
 	-webkit-filter: grayscale(1);
-}
-.hp>.shield {
-	background: rgba(63, 119, 173,1);
-	border: 1px solid rgba(31, 82, 131, 1);
 }
 .hp.text[data-condition="low"],
 .hp.textstyle[data-condition="low"] {
@@ -4074,10 +4044,10 @@ div[data-decoration="gold"]::before,
 	position:absolute;
 	background-image:url('../../theme/style/player/gold_d1.png');
 	background-size:100% 100%;
-	width:41px;
-	height:80px;
-	left:-13px;
-	top:-19px;
+	width:65px;
+	height:115px;
+	right:-21px;
+	top:-25px;
 }
 .button[data-decoration="gold"]::before{
 	transform:scale(0.75) translate(-3px,-3px);
@@ -4088,12 +4058,12 @@ div[data-decoration="gold"]::after,
 	position:absolute;
 	background-image:url('../../theme/style/player/gold_d2.png');
 	background-size:100% 100%;
-	width:75px;
-	height:32px;
+	width:80px;
+	height:40px;
 	left: auto;
 	top: auto;
 	right:-8px;
-	bottom:-8px;
+	bottom:-10px;
 }
 .button[data-decoration="gold"]::after{
 	transform: scale(0.75) translate(10px,2px);
@@ -4105,10 +4075,10 @@ div[data-decoration="silver"]::before,
 	position:absolute;
 	background-image:url('../../theme/style/player/silver_d1.png');
 	background-size:100% 100%;
-	width:41px;
-	height:61px;
-	left:-13px;
-	top:-14px;
+	width:65px;
+	height:136px;
+	right:-22px;
+	top:-32px;
 }
 .button[data-decoration="silver"]::before{
 	transform:scale(0.75) translate(-2px,-3px);
@@ -4119,12 +4089,12 @@ div[data-decoration="silver"]::after,
 	position:absolute;
 	background-image:url('../../theme/style/player/silver_d2.png');
 	background-size:100% 100%;
-	width:69px;
-	height:21px;
+	width:85px;
+	height:20px;
 	left: auto;
 	top: auto;
 	right:-8px;
-	bottom:-9px;
+	bottom:-8px;
 }
 .button[data-decoration="silver"]::after{
 	transform: scale(0.75) translate(10px,0px);
@@ -4136,10 +4106,10 @@ div[data-decoration="bronze"]::before,
 	position:absolute;
 	background-image:url('../../theme/style/player/bronze_d1.png');
 	background-size:100% 100%;
-	width:40px;
-	height:80px;
-	left:-13px;
-	top:-18px;
+	width:65px;
+	height:115px;
+	right:-21px;
+	top:-25px;
 }
 .button[data-decoration="bronze"]::before{
 	transform:scale(0.75) translate(-2px,-3px);
@@ -4150,12 +4120,12 @@ div[data-decoration="bronze"]::after,
 	position:absolute;
 	background-image:url('../../theme/style/player/bronze_d2.png');
 	background-size:100% 100%;
-	width:69px;
-	height:21px;
+	width:80px;
+	height:40px;
 	left: auto;
 	top: auto;
-	right: -8px;
-	bottom: -5px;
+	right:-8px;
+	bottom:-10px;
 }
 .button[data-decoration="bronze"]::after{
 	transform:scale(0.75) translate(9px,2px);
@@ -4263,14 +4233,13 @@ div[data-decoration="bronze"]::after{
 	color: rgb(255,235,59);
 }
 .card.fullskin>.info {
-	top: 5.2px;
-	right: 7px;
+	top: 8px;
+	right: 6px;
 	color: rgba(0,0,0,0.8);
-	white-space: nowrap;
 	text-shadow: none;
 }
 .card.fullskin>.info.red {
-	color: #A82424;
+	color: #631515;
 }
 
 .config>.toggle.onoff {
@@ -5357,5 +5326,4 @@ div[data-decoration="bronze"]::after{
 /*--------其它--------*/
 ::-webkit-scrollbar {
 	display: none;
-}
 }
