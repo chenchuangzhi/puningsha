@@ -441,6 +441,9 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         },
         content: function () {
             for(let i of [0,1,2,3]){
+                if(trigger.target.isDead()){
+                    return
+                }
                 player.useCard(
                     { name: "sha", nature: trigger.card.nature },
                     trigger.target
