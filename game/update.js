@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.37',
+	version:'1.9.120.38',
 	update:'1.9.120',
 	changeLog:[
-		'修复单机模式转换技的错误',
+		'新增韩信',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
