@@ -402,11 +402,13 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         content: function () {
           "step 0";
           player.chooseToCompare(target);
-          ("step 1");
+          "step 1";
           if (result.bool) {
             player.gainPlayerCard(target, true, "h", target.countCards("h"));
           } else {
-            player.loseHp();
+             const next = player.damage('nocard');
+             next.num = 1
+             next.source = target
           }
         },
         ai: {
@@ -505,7 +507,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       hanxin: "韩信",
       juejin: "绝境",
       juejin_info:
-        "主动技，出牌阶段限一次，当你只剩下一张手牌或只剩下一点体力值时，你可以选择一个目标进行拼点，若你赢，你获得其所有手牌；若你没赢，你失去一点体力值。",
+        "主动技，出牌阶段限一次，当你只剩下一张手牌或只剩下一点体力值时，你可以选择一个目标进行拼点，若你赢，你获得其所有手牌；若你没赢，其对你造成一点伤害",
       xianzhen1: "陷阵",
       xianzhen1_info:
         "当你受到伤害时，你可以选择发动此技能，视为向伤害来源使用一张火杀。",

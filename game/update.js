@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.42',
+	version:'1.9.120.43',
 	update:'1.9.120',
 	changeLog:[
-		'新增能天使',
+		'修改韩信技能',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
