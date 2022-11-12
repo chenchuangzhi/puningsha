@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.43',
+	version:'1.9.120.44',
 	update:'1.9.120',
 	changeLog:[
-		'修改韩信技能',
+		'华法琳测试',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
