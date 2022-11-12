@@ -1,12 +1,13 @@
 window.noname_update={
-	version:'1.9.120.38',
+	version:'1.9.120.39',
 	update:'1.9.120',
 	changeLog:[
-		'新增韩信',
+		'新增能天使',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
 		'image/character/hanxin.jpg',
+		'image/character/nengtianshi.jpg',
 		'image/character/baibianguai.jpg',
 		'image/character/wuzhaoxiang.jpg',
 		'image/character/fengdi.jpg',
