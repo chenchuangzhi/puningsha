@@ -1,11 +1,12 @@
 window.noname_update={
-	version:'1.9.120.36',
+	version:'1.9.120.37',
 	update:'1.9.120',
 	changeLog:[
 		'百变怪时间调整',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
+		'image/character/hanxin.jpg',
 		'image/character/baibianguai.jpg',
 		'image/character/wuzhaoxiang.jpg',
 		'image/character/fengdi.jpg',
