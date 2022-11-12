@@ -440,7 +440,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           return !!(event.card.name == "sha" && event.target != player && event.card.suit)
         },
         content: function () {
-            for(let i of [0,1,2,3]){
+            for(let i of [0,1,2,3,4]){
                 player.useCard(
                     { name: "sha", nature: trigger.card.nature },
                     trigger.target
