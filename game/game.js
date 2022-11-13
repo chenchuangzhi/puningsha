@@ -7672,7 +7672,7 @@
 								}
 								_status.evaluatingExtension=false;
 							}
-							else if(lib.config.mode!='connect'||(!localStorage.getItem(lib.configprefix+'directstart')&&show_splash)){
+							else {
 								extensionlist.push(lib.config.extensions[i]);
 							}
 						}
@@ -7747,7 +7747,7 @@
 					var styleLoaded=function(){
 						styleToLoad--;
 						if(styleToLoad==0){
-							if(extensionlist.length&&(lib.config.mode!='connect'||show_splash)){
+							if(extensionlist.length){
 								var extToLoad=extensionlist.length;
 								var extLoaded=function(){
 									extToLoad--;

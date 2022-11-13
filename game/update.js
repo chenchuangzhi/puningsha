@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.51',
+	version:'1.9.120.52',
 	update:'1.9.120',
 	changeLog:[
 		'测试',
