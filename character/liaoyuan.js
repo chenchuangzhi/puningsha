@@ -83,7 +83,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           }).judge2 = function (result) {
             return result.bool;
           };
-          ("step 1");
+          "step 1";
           if (result.bool) {
             trigger.targets.remove(player);
             trigger.getParent().triggeredTargets2.remove(player);
@@ -211,12 +211,12 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           "step 0"; //第0步(必须从0开始)
           player.storage["huanghun"] = true; //技能发动过
           player.awakenSkill("huanghun"); //技能文本变灰(失去技能，标记消失)
-          ("step 1");
+          "step 1";
           player.addSkill("huanghun1");
           player.addSkill("huanghun2");
           player.addSkill("huanghun3");
           player.addSkill("qinggang_skill");
-          ("step 2");
+          "step 2";
           player.gainMaxHp(5);
           player.recover(10);
         },
@@ -261,7 +261,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         content: function () {
           "step 0";
           player.addMark("yujin11");
-          ("step 1");
+          "step 1";
           if (player.countMark("yujin11") > 7) {
             player.die();
           }
@@ -377,7 +377,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
             let s = player.skills.slice(1);
             player.removeSkill(s);
           }
-          ("step 1");
+          "step 1";
           const pl = game.players.filter((item) => item !== player);
           let i = Math.floor(Math.random() * pl.length);
           let p = pl[i];
