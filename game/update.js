@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.46',
+	version:'1.9.120.47',
 	update:'1.9.120',
 	changeLog:[
-		'本地大更新，更新华法琳',
+		'修复燎原百战武将bug',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
