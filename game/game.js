@@ -759,7 +759,7 @@
 				config:{
 					theme:{
 						name:'主题',
-						init:'simple',
+						init:'woodden',
 						item:{},
 						visualMenu:function(node,link){
 							if(!node.menu){
@@ -2827,7 +2827,7 @@
 								node.style.fontFamily=link;
 							}
 							else{
-								node.style.fontFamily="'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei',Helvetica,Arial,sans-serif";
+								node.style.fontFamily="'STHeiti','SimHei','Microsoft JhengHei','Microsoft YaHei','WenQuanYi Micro Hei','Suits',Helvetica,Arial,sans-serif";
 							}
 							node.style.fontSize='20px';
 						},
@@ -4631,7 +4631,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('change_identity',bool,this._link.config.mode);
-							if(!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
+							if(get.mode()!='identity'||!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
 							var dialog;
 							if(ui.cheat2&&ui.cheat2.backup) dialog=ui.cheat2.backup;
 							else dialog=_status.event.dialog;
@@ -4647,7 +4647,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('change_choice',bool,this._link.config.mode);
-							if(!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
+							if(get.mode()!='identity'||!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
 							if(!ui.cheat&&get.config('change_choice')) ui.create.cheat();
 							else if(ui.cheat&&!get.config('change_choice')){
 								ui.cheat.close();
@@ -4670,7 +4670,7 @@
 						init:false,
 						onclick:function(bool){
 							game.saveConfig('continue_game',bool,this._link.config.mode);
-							if(get.config('continue_game')){
+							if(get.config('continue_game')&&get.mode()=='identity'){
 								if(!ui.continue_game&&_status.over&&!_status.brawl&&!game.no_continue_game){
 									ui.continue_game=ui.create.control('再战',game.reloadCurrent);
 								}
@@ -4687,7 +4687,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('dierestart',bool,this._link.config.mode);
-							if(get.config('dierestart')){
+							if(get.config('dierestart')&&get.mode()=='identity'){
 								if(!ui.restart&&game.me.isDead()&&!_status.connectMode){
 									ui.restart=ui.create.control('restart',game.reload);
 								}
@@ -4703,7 +4703,7 @@
 						init:false,
 						onclick:function(bool){
 							game.saveConfig('revive',bool,this._link.config.mode);
-							if(get.config('revive')){
+							if(get.config('revive')&&get.mode()=='identity'){
 								if(!ui.revive&&game.me.isDead()){
 									ui.revive=ui.create.control('revive',ui.click.dierevive);
 								}
@@ -5050,7 +5050,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('free_choose',bool,this._link.config.mode);
-							if(!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
+							if(get.mode()!='guozhan'||!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
 							if(!ui.cheat2&&get.config('free_choose')) ui.create.cheat2();
 							else if(ui.cheat2&&!get.config('free_choose')){
 								ui.cheat2.close();
@@ -5069,7 +5069,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('change_identity',bool,this._link.config.mode);
-							if(!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
+							if(get.mode()!='guozhan'||!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
 							var dialog;
 							if(ui.cheat2&&ui.cheat2.backup) dialog=ui.cheat2.backup;
 							else dialog=_status.event.dialog;
@@ -5085,7 +5085,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('change_choice',bool,this._link.config.mode);
-							if(!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
+							if(get.mode()!='guozhan'||!_status.event.getParent().showConfig&&!_status.event.showConfig) return;
 							if(!ui.cheat&&get.config('change_choice')) ui.create.cheat();
 							else if(ui.cheat&&!get.config('change_choice')){
 								ui.cheat.close();
@@ -5109,7 +5109,7 @@
 						intro:'游戏结束后可选择用相同的武将再进行一局游戏',
 						onclick:function(bool){
 							game.saveConfig('continue_game',bool,this._link.config.mode);
-							if(get.config('continue_game')){
+							if(get.config('continue_game')&&get.mode()=='guozhan'){
 								if(!ui.continue_game&&_status.over&&!_status.brawl&&!game.no_continue_game){
 									ui.continue_game=ui.create.control('再战',game.reloadCurrent);
 								}
@@ -5125,7 +5125,7 @@
 						init:true,
 						onclick:function(bool){
 							game.saveConfig('dierestart',bool,this._link.config.mode);
-							if(get.config('dierestart')){
+							if(get.config('dierestart')&&get.mode()=='guozhan'){
 								if(!ui.restart&&game.me.isDead()&&!_status.connectMode){
 									ui.restart=ui.create.control('restart',game.reload);
 								}
@@ -5141,7 +5141,7 @@
 						init:false,
 						onclick:function(bool){
 							game.saveConfig('revive',bool,this._link.config.mode);
-							if(get.config('revive')){
+							if(get.config('revive')&&get.mode()=='guozhan'){
 								if(!ui.revive&&game.me.isDead()){
 									ui.revive=ui.create.control('revive',ui.click.dierevive);
 								}
@@ -5227,7 +5227,7 @@
 					},
 					connect_replace_number:{
 						name:'替补人数',
-						init:'0',
+						init:'2',
 						frequent:true,
 						item:{
 							'0':'无',
@@ -6665,6 +6665,7 @@
 			globalId:0,
 		},
 		help:{
+			'关于游戏':'<div style="margin:10px">关于无名杀</div><ul style="margin-top:0"><li>无名杀官方发布地址仅有GitHub仓库！<br><a href="https://github.com/libccy/noname">点击前往Github仓库</a><br><li>其他所有的所谓“无名杀”社群（包括但不限于绝大多数“官方”QQ群、QQ频道等）均为粉丝自发组织，与无名杀官方无关！',
 			'游戏操作':'<ul><li>长按/鼠标悬停/右键单击显示信息。<li>触屏模式中，双指点击切换暂停；下划显示菜单，上划切换托管。<li>键盘快捷键<br>'+
 			'<table><tr><td>A<td>切换托管<tr><td>W<td>切换不询问无懈<tr><td>空格<td>暂停</table><li>编辑牌堆<br>在卡牌包中修改牌堆后，将自动创建一个临时牌堆，在所有模式中共用，当保存当前牌堆后，临时牌堆被清除。每个模式可设置不同的已保存牌堆，设置的牌堆优先级大于临时牌堆。</ul>',
 			'游戏命令':'<div style="margin:10px">变量名</div><ul style="margin-top:0"><li>场上角色<br>game.players<li>阵亡角色<br>game.dead'+
@@ -7591,6 +7592,7 @@
 							lib.configMenu.appearence.config.cardtext_font.item[i]=pack.font[i];
 							lib.configMenu.appearence.config.global_font.item[i]=pack.font[i];
 							ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/"+i+".ttf');}",0);
+							if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: '"+i+"'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
 						}
 						if(lib.config.suits_font) ui.css.fontsheet.sheet.insertRule("@font-face {font-family: 'Suits'; src: url('"+lib.assetURL+"font/suits.ttf');}",0);
 						lib.configMenu.appearence.config.cardtext_font.item.default='默认';
@@ -7657,12 +7659,14 @@
 						}
 						var alerted=false;
 						for(var i=0;i<lib.config.extensions.length;i++){
-							if(!alerted&&window.bannedExtensions.contains(lib.config.extensions[i])){
+							if(window.bannedExtensions.contains(lib.config.extensions[i])){
+								//if(!alerted) alert('读取某些扩展时出现问题。');
 								alerted=true;
-								alert('读取某些扩展时出现问题。');
-							};
+								continue;
+							}
 							var extcontent=localStorage.getItem(lib.configprefix+'extension_'+lib.config.extensions[i]);
 							if(extcontent){
+								var backup_onload=lib.init.onload;
 								_status.evaluatingExtension=true;
 								try{
 									eval(extcontent);
@@ -7670,6 +7674,7 @@
 								catch(e){
 									console.log(e);
 								}
+								lib.init.onload=backup_onload;
 								_status.evaluatingExtension=false;
 							}
 							else {
@@ -7678,15 +7683,16 @@
 						}
 					}
 					else{
-                    						var alerted=false;
-                    						for(var i=0;i<lib.config.extensions.length;i++){
-                    							if(!alerted&&window.bannedExtensions.contains(lib.config.extensions[i])){
-                    								alerted=true;
-                    								alert('读取某些扩展时出现问题。');
-                    							}
-                    							game.import('extension',{name:lib.config.extensions[i]});
-                    						}
-                    					}
+							var alerted=false;
+							for(var i=0;i<lib.config.extensions.length;i++){
+								if(window.bannedExtensions.contains(lib.config.extensions[i])){
+									//if(!alerted) alert('读取某些扩展时出现问题。');
+									alerted=true;
+									continue;
+								}
+								game.import('extension',{name:lib.config.extensions[i]});
+							}
+						}
 					var loadPack=function(){
 						var toLoad=lib.config.all.cards.length+lib.config.all.characters.length+1;
 						var packLoaded=function(){
@@ -7755,7 +7761,17 @@
 										loadPack();
 									}
 								}
+								//读取扩展
+								var alerted=false;
 								for(var i=0;i<extensionlist.length;i++){
+									if(window.bannedExtensions.contains(extensionlist[i])){
+										alerted=true;
+										extToLoad--;
+										if(extToLoad==0){
+											loadPack();
+										}
+										continue;
+									}
 									lib.init.js(lib.assetURL+'extension/'+extensionlist[i],'extension',extLoaded,(function(i){
 										return function(){
 											game.removeExtension(i);
@@ -10654,6 +10670,9 @@
 							if(ui.confirm) ui.confirm.close();
 							game.resume();
 							_status.imchoosing=false;
+							setTimeout(function(){
+								ui.arena.classList.remove('choose-to-move');
+							},500);
 						};
 						event.dialog.classList.add('scroll1');
 						event.dialog.classList.add('scroll2');
@@ -11120,8 +11139,11 @@
 						list.push('equip'+i);
 					}
 					if(!list.length) event.finish();
-					else{
+					else if(list.length==1){
 						event.list=list;
+						event._result={control:list[0]};
+					}
+					else{
 						var next=player.chooseControl(list);
 						next.set('prompt','请选择恢复一个装备栏');
 						if(!event.ai) event.ai=function(event,player,list){
@@ -11146,6 +11168,10 @@
 						list.push('equip'+i);
 					}
 					if(!list.length) event.finish();
+					else if(list.length==1){
+						event.list=list;
+						event._result={control:list[0]};
+					}
 					else{
 						event.list=list;
 						var next=player.chooseControl(list);
@@ -16867,14 +16893,13 @@
 						delete player.equiping;
 						return;
 					}
-					if(lib.config.background_audio){
-						game.playAudio('effect',get.subtype(card));
-					}
-					game.broadcast(function(type){
+					var subtype=get.subtype(card);
+					if(subtype=='equip6') subtype='equip3';
+					game.broadcastAll(function(type){
 						if(lib.config.background_audio){
 							game.playAudio('effect',type);
 						}
-					},get.subtype(card));
+					},subtype);
 					player.$equip(card);
 					game.addVideo('equip',player,get.cardInfo(card));
 					game.log(player,'装备了',card);
@@ -19563,13 +19588,14 @@
 								var ais=lib.skill[card].check||function(){return 0};
 								return ais();
 							}
-							var addi=(get.value(card)>=8&&get.type(card)!='equip')?-10:0;
+							var addi=(get.value(card)>=8&&get.type(card)!='equip')?-6:0;
 							if(card.name=='du') addi-=3;
 							var source=_status.event.source;
 							var player=_status.event.player;
+							var event=_status.event.getParent();
 							var getn=function(card){
-								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13;
-								return get.number(card);
+								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13*(event.small?-1:1);
+								return get.number(card)*(event.small?-1:1);
 							}
 							if(source&&source!=player&&get.attitude(player,source)>1){
 								return -getn(card)-get.value(card)/2+addi;
@@ -19588,12 +19614,12 @@
 							}
 							var player=get.owner(card);
 							var getn=function(card){
-								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13;
-								return get.number(card);
+								if(player.hasSkill('tianbian')&&get.suit(card)=='heart') return 13*(event.small?-1:1);
+								return get.number(card)*(event.small?-1:1);
 							}
 							var event=_status.event.getParent();
 							var to=(player==event.player?event.target:event.player);
-							var addi=(get.value(card)>=8&&get.type(card)!='equip')?-10:0;
+							var addi=(get.value(card)>=8&&get.type(card)!='equip')?-6:0;
 							if(card.name=='du') addi-=5;
 							if(player==event.player){
 								if(get.attitude(player,to)>0&&event.small){
@@ -19602,7 +19628,7 @@
 								return getn(card)-get.value(card)/2+addi;
 							}
 							else{
-								if(get.attitude(player,to)>0&&!event.small){
+								if(get.attitude(player,to)>0){
 									return -getn(card)-get.value(card)/2+addi;
 								}
 								return getn(card)-get.value(card)/2+addi;
@@ -29997,7 +30023,9 @@
 		},
 		import:function(type,content){
 			if(type=='extension'){
+				var backup_onload=lib.init.onload;
 				game.loadExtension(content);
+				lib.init.onload=backup_onload;
 			}
 			else{
 				if(!lib.imported[type]){
@@ -36645,7 +36673,7 @@
 		roundNumber:0,
 		shuffleNumber:0,
 	};
-	window['b'+'ann'+'e'+'dE'+'x'+'ten'+'s'+'i'+'o'+'ns']=['\u5047装\u65e0敌'];
+	window['b'+'ann'+'e'+'dE'+'x'+'ten'+'s'+'i'+'o'+'ns']=['\u4fa0\u4e49','\u5168\u6559\u7a0b'];
 	var ui={
 		updates:[],
 		thrown:[],
@@ -42911,8 +42939,8 @@
 							updatepx.style.display='none';
 							updatepx.style.whiteSpace='nowrap';
 							updatepx.style.marginTop='8px';
-							var buttonx=ui.create.node('button','访问项目主页（Show-K）',function(){
-								window.open('https://github.com/Show-K/noname');
+							var buttonx=ui.create.node('button','访问项目主页',function(){
+								window.open('https://github.com/libccy/noname');
 							});
 							updatepx.appendChild(buttonx);
 							ui.updateUpdate=function(){
@@ -51929,7 +51957,7 @@
 					case 'event': return get.eventInfoOL(item);
 					default:
 					if(typeof level!='number'){
-						level=5;
+						level=8;
 					}
 					if(Array.isArray(item)){
 						if(level==0){
@@ -52501,7 +52529,7 @@
 		},
 		position:function(card,ordering){
 			if(get.itemtype(card)=='player') return parseInt(card.dataset.position);
-			if(card.timeout&&card.destiny){
+			if(card.timeout&&card.destiny&&card.destiny.classList){
 				if(card.destiny.classList.contains('equips')) return 'e';
 				if(card.destiny.classList.contains('judges')) return 'j';
 				if(card.destiny.classList.contains('expansions')) return 'x';
@@ -52512,7 +52540,7 @@
 				if(card.destiny.id=='ordering') return ordering?'o':'d';
 				return null;
 			}
-			if(!card.parentNode) return;
+			if(!card.parentNode||!card.parentNode.classList) return;
 			if(card.parentNode.classList.contains('equips')) return 'e';
 			if(card.parentNode.classList.contains('judges')) return 'j';
 			if(card.parentNode.classList.contains('expansions')) return 'x';
@@ -52956,8 +52984,8 @@
 			var func;
 			if(sort=='type_sort'){
 				func=function(card){
-					var type=get.type(card);
-					var subtype=get.subtype(card);
+					var type=get.type(card,null,false);
+					var subtype=get.subtype(card,false);
 					if(lib.cardType[subtype]){
 						return lib.cardType[subtype];
 					}
@@ -53551,7 +53579,7 @@
 				if(lib.config.show_favourite&&lib.character[node.name]&&game.players.contains(node)&&
 					(!modepack||!modepack[node.name])&&(!simple||get.is.phoneLayout())){
 					var addFavourite=ui.create.div('.text.center.pointerdiv');
-					addFavourite.link=node.link;
+					addFavourite.link=node.name;
 					if(lib.config.favouriteCharacter.contains(node.name)){
 						addFavourite.innerHTML='移除收藏';
 					}

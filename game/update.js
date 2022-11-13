@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.54',
+	version:'1.9.120.55',
 	update:'1.9.120',
 	changeLog:[
-		'解决bug',
+		'更新最新版',
 	],
 	files:[
 	    'image/character/helage.jpg',
