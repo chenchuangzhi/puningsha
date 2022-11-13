@@ -1,10 +1,11 @@
 window.noname_update={
-	version:'1.9.120.47',
+	version:'1.9.120.48',
 	update:'1.9.120',
 	changeLog:[
-		'修复燎原百战武将bug',
+		'更新赫拉格',
 	],
 	files:[
+	    'image/character/helage.jpg',
 		'image/character/chengyaojin.jpg',
 		'image/character/huafalin.jpg',
 		'image/character/hanxin.jpg',

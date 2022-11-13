@@ -9,6 +9,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             weizhaoxiang: ['female', 'daba', 4, ['wufanghun', 'weifuhan']],
             fengdi: ["female", "daba", 4, ["ark_pojun", "ark_bitang"]],
             huafalin: ["female", "daba", 3, ["buwen2", "bangneng2", "shenji2"]],
+            helage:["male","daba",3,["xianyue","qiusheng","tashijiangjun"]],
         },
         skill: {
             //赵襄
@@ -557,6 +558,71 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
             },
 
+            xianyue: {
+                mod: {
+                    globalFrom: function (player, target, distance) {
+                        if (!player.getEquip(1)) return distance - 2;
+                    },
+                },
+                trigger: {
+                    source: "damageSource",
+                },
+                forced: true,
+                filter: function (event, player) {
+                    return player.isDamaged() && event.card && event.card.name == 'sha';
+                },
+                content: function () {
+                    player.recover(trigger.num);
+                },
+            },
+            qiusheng: {
+                mod: {
+                    cardUsable: function (card, player, num) {
+                        if (card.name == 'sha') {
+                            return num + player.getDamagedHp();
+                        }
+                    },
+                },
+                trigger: {
+                    player: "dying",
+                },
+                usable: 1,
+                forced: true,
+                content: function () {
+                    'step 0'
+                    player.draw(4);
+                    var stat = player.getStat();
+                    stat.card = {};
+                    for (var i in stat.skill) {
+                        var bool = false;
+                        var info = lib.skill[i];
+                        if (info.enable != undefined) {
+                            if (typeof info.enable == 'string' && info.enable == 'phaseUse') bool = true;
+                            else if (typeof info.enable == 'object' && info.enable.contains('phaseUse')) bool = true;
+                        }
+                        if (bool) stat.skill[i] = 0;
+                    }
+                    'step 1'
+                    player.phaseUse();
+                },
+            },
+            tashijiangjun: {
+                trigger: {
+                    player: "recoverBegin",
+                },
+                forced: true,
+                filter: function (event, player) {
+                    if (event.getParent(2).skill == 'xianyue') return false;
+                    return true;
+                },
+                content: function () {
+                    trigger.cancel();
+                },
+                ai:{
+                    hpUnRe:true,
+                },
+            },
+
         },
         translate: {
             wuzhaoxiang: '吴赵襄',
@@ -579,6 +645,13 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             bangneng2_info: '当其他角色使用杀时，你可以将一张牌置于牌堆顶，然后从牌堆底摸一张牌',
             shenji2: '神技',
             shenji2_info: '出牌阶段限一次，你可以弃置一张牌，并指定一名角色，该角色获取将红牌当杀的神技',
+            helage:'赫拉格',
+            xianyue: "弦月",
+            xianyue_info: "锁定技，你造成伤害时回复1点体力。当你的体力不以此法回复时，防止之。",
+            qiusheng: "求生",
+            qiushengi_info: "全名求生剑法，锁定技，出牌阶段，你可额外使用X张【杀】（X为你已损体力值）。你进入濒死状态时摸四张牌，并开始一个独立的出牌阶段。",
+            tashijiangjun: "他是将军！",
+            tashijiangjun_info: "",
         },
     };
 });
