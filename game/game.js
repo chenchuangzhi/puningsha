@@ -9024,7 +9024,11 @@
 						clickedNode=true;
 						lib.config.mode=this.link;
 						game.saveConfig('mode',this.link);
-
+						if(this.link=='connect'){
+							localStorage.setItem(lib.configprefix+'directstart',true);
+							game.reload();
+						}
+						else{
 							if(game.layout!='mobile'&&lib.layoutfixed.indexOf(lib.config.mode)!==-1){
 								game.layout='mobile';
 								ui.css.layout.href=lib.assetURL+'layout/'+game.layout+'/layout.css';
