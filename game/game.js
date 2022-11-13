@@ -7678,13 +7678,15 @@
 						}
 					}
 					else{
-						if(lib.config.mode!='connect'||(!localStorage.getItem(lib.configprefix+'directstart')&&show_splash)){
-							for(var i=0;i<lib.config.extensions.length;i++){
-								if(window.bannedExtensions.contains(lib.config.extensions[i])) continue;
-								game.import('extension',{name:lib.config.extensions[i]});
-							}
-						}
-					}
+                    						var alerted=false;
+                    						for(var i=0;i<lib.config.extensions.length;i++){
+                    							if(!alerted&&window.bannedExtensions.contains(lib.config.extensions[i])){
+                    								alerted=true;
+                    								alert('读取某些扩展时出现问题。');
+                    							}
+                    							game.import('extension',{name:lib.config.extensions[i]});
+                    						}
+                    					}
 					var loadPack=function(){
 						var toLoad=lib.config.all.cards.length+lib.config.all.characters.length+1;
 						var packLoaded=function(){
@@ -46162,14 +46164,7 @@
 						}
 					}
 					else{
-						var num=0;
-						for(var i of game.connectPlayers){
-							if(!i.nickname&&!i.classList.contains('unselectable2')) num++;
-						}
-						if(num>=lib.configOL.number-1){
-							alert('至少要有两名玩家才能开始游戏！');
-							return;
-						}
+
 						game.resume();
 					}
 					button.delete();
