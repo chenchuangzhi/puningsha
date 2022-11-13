@@ -649,7 +649,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             xianyue: "弦月",
             xianyue_info: "锁定技，你造成伤害时回复1点体力。当你的体力不以此法回复时，防止之。",
             qiusheng: "求生",
-            qiushengi_info: "全名求生剑法，锁定技，出牌阶段，你可额外使用X张【杀】（X为你已损体力值）。你进入濒死状态时摸四张牌，并开始一个独立的出牌阶段。",
+            qiusheng_info: "全名求生剑法，锁定技，出牌阶段，你可额外使用X张【杀】（X为你已损体力值）。你进入濒死状态时摸四张牌，并开始一个独立的出牌阶段。",
             tashijiangjun: "他是将军！",
             tashijiangjun_info: "",
         },
