@@ -55905,7 +55905,7 @@
 			}
 		},
 		groups:function(){
-			return ['sst_light','sst_dark','sst_spirit','sst_reality','sst_smash'];
+			return ['wei','shu','wu','qun','jin','western','key'];
 		},
 		types:function(){
 			var types=[];
