@@ -477,9 +477,84 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             },
             //华法琳
             buwen2: {
-                equipSkill: true,
-                noHidden: true,
-                inherit: 'tengjia',
+                group: ['manjia1', 'manjia2']
+            },
+            manjia1: {
+                trigger: { target: ['useCardToBefore', 'shaBegin'] },
+                forced: true,
+                priority: 6,
+                filter: function (event, player, name) {
+                    if (name == 'shaBegin') return lib.skill.tengjia3.filter(event, player);
+                    return lib.skill.tengjia1.filter(event, player);
+                },
+                content: function () {
+                    trigger.cancel();
+                },
+                ai: {
+                    effect: {
+                        target: function (card, player, target, current) {
+
+                            return lib.skill.tengjia1.ai.effect.target.apply(this, arguments);
+                        }
+                    }
+                }
+            },
+            manjia2: {
+                trigger: { player: 'damageBegin3' },
+                filter: function (event, player) {
+
+                    if (event.nature == 'fire') return true;
+                },
+                forced: true,
+                check: function () {
+                    return false;
+                },
+                content: function () {
+                    trigger.num++;
+                },
+                ai: {
+                    effect: {
+                        target: function (card, player, target, current) {
+
+                            return lib.skill.tengjia2.ai.effect.target.apply(this, arguments);
+                        }
+                    }
+                }
+            },
+            bangneng2: {
+                trigger: { global: 'useCard' },
+                filter: function (event, player) {
+                    return event.card.name == 'sha' && event.player != player &&
+                        player.countCards('h') > 0;
+                },
+                content: function () {
+                    'step 0'
+                    player.chooseCard('选择一张牌置于牌堆顶','he',true);
+                    'step 1'
+                    player.lose(result.cards,ui.cardPile,'insert');
+                    player.draw(1, 'bottom');
+                },
+            },
+            shenji2: {
+                enable: "phaseUse",
+                usable: 1,
+                filter: function (event, player) {
+                    return player.countCards('h') > 0;
+                },
+                content: function () {
+                    "step 0"
+                    player.chooseToDiscard('h') // 选择弃置一张手牌
+                    "step 1"
+                    if(result.bool){ // 有没有弃置手牌
+                        player.chooseTarget(true) // 选择目标
+                    }
+                    "step 2"
+                    if(result.bool && result.targets && result.targets.length > 0){ // 是否选择了目标
+                        let r = result.targets // 选择的目标数组
+                        // trigger是选择的目标
+                        r[0].addSkill("wusheng") // 给该角色增加神技
+                    }
+                },
             },
 
         },
@@ -497,13 +572,13 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             "ark_pojun_info": "当你使用【杀】指定一个目标后，你可以令其将手牌分为两份，然后你弃置其中的一份。",
             "ark_bitang": "闭膛",
             "ark_bitang_info": "锁定技，你使用【杀】无次数限制，然后当你在出牌阶段使用超过一张杀后，须在该【杀】结算后选择一项：①弃置一张武器牌；②失去1点体力，且本回合此技能失效。",
-            huafalin:'华法琳',
-            buwen2:'不稳定血浆',
-            buwen2_info:'锁定技，你视为装备着藤甲',
-            bangneng2:'帮能',
-            bangneng2_info:'当其他角色使用杀后，你可以将一张牌置于牌堆顶，然后从牌堆底摸一张牌',
-            shenji2:'神技',
-            shenji2_info:'出牌阶段限一次，你可以弃置一张牌，并指定一名其他角色，该角色获取将红牌当杀的神技',
+            huafalin: '华法琳',
+            buwen2: '不稳定血浆',
+            buwen2_info: '锁定技，你视为装备着藤甲',
+            bangneng2: '帮能',
+            bangneng2_info: '当其他角色使用杀时，你可以将一张牌置于牌堆顶，然后从牌堆底摸一张牌',
+            shenji2: '神技',
+            shenji2_info: '出牌阶段限一次，你可以弃置一张牌，并指定一名角色，该角色获取将红牌当杀的神技',
         },
     };
 });

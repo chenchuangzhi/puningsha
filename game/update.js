@@ -1,11 +1,12 @@
 window.noname_update={
-	version:'1.9.120.45',
+	version:'1.9.120.46',
 	update:'1.9.120',
 	changeLog:[
-		'本地大更新，华法琳目前没有实现',
+		'本地大更新，更新华法琳',
 	],
 	files:[
 		'image/character/chengyaojin.jpg',
+		'image/character/huafalin.jpg',
 		'image/character/hanxin.jpg',
 		'image/character/nengtianshi.jpg',
 		'image/character/baibianguai.jpg',
