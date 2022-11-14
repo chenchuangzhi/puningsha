@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.55',
+	version:'1.9.120.56',
 	update:'1.9.120',
 	changeLog:[
-		'更新最新版',
+		'阳光灿烂首页',
 	],
 	files:[
 	    'image/character/helage.jpg',
@@ -15,6 +15,17 @@ window.noname_update={
 		'image/character/fengdi.jpg',
 		'image/character/weizhaoxiang.jpg',
 		'image/character/shierkaite.jpg',
+		  'image/splash/boss.jpg',
+        	     'image/splash/brwal.jpg',
+        	     'image/splash/chess.jpg',
+        	     'image/splash/connect.jpg',
+        	     'image/splash/doudizhu.jpg',
+        	     'image/splash/guozhan.jpg',
+        	     'image/splash/identity.jpg',
+        	     'image/splash/single.jpg',
+        	     'image/splash/stone.jpg',
+        	     'image/splash/tafang.jpg',
+        	     'image/splash/versus.jpg',
 		'character/sb.js',
 		'character/sp2.js',
 		'character/daba.js',
