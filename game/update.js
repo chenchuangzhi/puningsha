@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.57',
+	version:'1.9.120.58',
 	update:'1.9.120',
 	changeLog:[
 		'新增岳不群',

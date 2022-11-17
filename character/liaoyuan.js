@@ -10,7 +10,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       baibianguai: ["male", "liaoyuan2", 4, ["baibian"]],
       hanxin: ["male", "liaoyuan2", 4, ["juejin", "xianzhen1"]],
       nengtianshi: ["female", "liaoyuan2", 4, ["guozai","paoguang2"]],
-      yuebuqun:["male","liaoyuan2",4,["zixia","zigong","pixie"]],
+      yuebuqun:["male","liaoyuan2",4,["zixia","zigong"]],
     },
     skill: {
       wuzhuang: {
