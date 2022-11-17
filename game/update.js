@@ -1,10 +1,11 @@
 window.noname_update={
-	version:'1.9.120.56',
+	version:'1.9.120.57',
 	update:'1.9.120',
 	changeLog:[
-		'阳光灿烂首页',
+		'新增岳不群',
 	],
 	files:[
+		'image/character/yuebuqun.jpg',
 	    'image/character/helage.jpg',
 		'image/character/chengyaojin.jpg',
 		'image/character/huafalin.jpg',

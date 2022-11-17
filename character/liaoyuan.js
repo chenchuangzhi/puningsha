@@ -10,6 +10,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       baibianguai: ["male", "liaoyuan2", 4, ["baibian"]],
       hanxin: ["male", "liaoyuan2", 4, ["juejin", "xianzhen1"]],
       nengtianshi: ["female", "liaoyuan2", 4, ["guozai","paoguang2"]],
+      yuebuqun:["male","liaoyuan2",4,["zixia","zigong","pixie"]],
     },
     skill: {
       wuzhuang: {
@@ -474,6 +475,66 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           }
         },
       },
+
+      zixia:{
+        trigger: { player: "damageEnd" },
+        content: function () {
+          "step 0";
+          player.judge(function (result) {
+            if (get.suit(result) === 'heart' || get.suit(result) === 'diamond') return 2;
+            return -1;
+          }).judge2 = function (result) {
+            return result.bool;
+          };
+          "step 1";
+          if (result.bool) {
+            player.recover(1)
+          }else{
+            player.gain(trigger.cards,'gain2');
+          }
+        },
+        ai:{
+					maixie:true,
+					maixie_hp:true,
+					effect:{
+						target:function(card,player,target){
+							if(player.hasSkillTag('jueqing',false,target)) return [1,-1];
+							if(get.tag(card,'damage')) return [1,0.55];
+						}
+					}
+				}
+      },
+
+      zigong:{
+        enable:"phaseUse",
+        init:function(player){
+          player.storage.zigong = false
+        },
+        filter:function(event,player){
+          return !player.storage.zigong
+        },
+        content:function(){
+          "step 0"
+          player.loseMaxHp();
+          player.hp = 1
+          player.sex = 'fmale'
+          "step 1"
+          player.storage.zigong = true
+          game.log(player, '获得技能', '【' + get.translation('pixie') + '】');
+          player.addSkill('pixie')
+        }
+      },
+
+      pixie:{
+        mod:{
+          cardUsable:function (card,player,num){
+						if(card.name=='sha') return num + 1;
+					},
+          selectTarget:function(card,player,range){
+						if(card.name=='sha'&&range[1]!=-1) range[1]++
+					}
+        }
+      }
     },
     translate: {
       yuwentai: "宇文泰",
@@ -517,6 +578,13 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       paoguang2: "抛光",
       paoguang2_info:
         "锁定技，当你的杀造成伤害时，你需要进行一次判定，若结果不为红桃，则取消本次伤害",
+      yuebuqun:"岳不群",
+      zixia:"紫霞",
+      zixia_info:"当你受到伤害后，你可以进行一次判定，所谓♥️ 或♦️ ，你回复一点血量;若为♠️ 或♣️ ，你过得造成伤害的牌。",
+      zigong:"自宫",
+      zigong_info:"你的回合内，你可以发动此技能。你降低一点体力上限，体力值扣除至一点，然后你的性别修改为太监，然后你获得辟邪技能。",
+      pixie:"辟邪",
+      pixie_info:"你使用杀次数+1;你使用杀的目标+1。"
     },
   };
 });
