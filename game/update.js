@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.58',
+	version:'1.9.120.59',
 	update:'1.9.120',
 	changeLog:[
-		'新增岳不群',
+		'调整默认布局',
 	],
 	files:[
 		'image/character/yuebuqun.jpg',

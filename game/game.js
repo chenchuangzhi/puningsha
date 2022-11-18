@@ -789,7 +789,7 @@
 					},
 					layout:{
 						name:'布局',
-						init:'mobile',
+						init:'nova',
 						item:{
 							default:'旧版',
 							newlayout:'对称',
@@ -1264,7 +1264,7 @@
 					},
 					image_background_random:{
 						name:'随机背景',
-						init:false,
+						init:true,
 						onclick:function(bool){
 							game.saveConfig('image_background_random',bool);
 							lib.init.background();
