@@ -11,6 +11,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       hanxin: ["male", "liaoyuan2", 4, ["juejin", "xianzhen1"]],
       nengtianshi: ["female", "liaoyuan2", 4, ["guozai","paoguang2"]],
       yuebuqun:["male","liaoyuan2",4,["zixia","zigong"]],
+      linpingzhi:["male","liaoyuan2",4,['shane',"xianchou1"]]
     },
     skill: {
       wuzhuang: {
@@ -506,6 +507,8 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       },
 
       zigong:{
+        skillAnimation: true,
+        animationColor: "red",
         enable:"phaseUse",
         init:function(player){
           player.storage.zigong = false
@@ -522,6 +525,16 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           player.storage.zigong = true
           game.log(player, '获得技能', '【' + get.translation('pixie') + '】');
           player.addSkill('pixie')
+        },
+        ai:{
+          result:{
+            player:function(player,target,card,num){
+              if(player.countCards('h','tao') && player.countCards('h','sha')){
+                return 1
+              }
+              return 0.5
+            }
+          }
         }
       },
 
@@ -533,8 +546,104 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           selectTarget:function(card,player,range){
 						if(card.name=='sha'&&range[1]!=-1) range[1]++
 					}
+        },
+        ai:{
+          result:{
+            target:function(){
+              return -1
+            },
+            player:function(){
+              return 1
+            }
+          }
         }
-      }
+      },
+
+      shane:{
+        init:function(player){
+          player.storage['chou'] = 0
+        },
+        mod:{
+          maxHandcard:function(player,num){
+						return num+player.storage['chou'];
+					}
+        },
+        group: ["shane_shan","shane_e","chou"]
+      },
+      chou:{
+        intro: {
+          //标记介绍
+          name2: "仇",
+          content:'已有#个仇',
+        },
+      },
+      shane_shan:{
+        forced:true,
+        trigger:{player:"damageBefore"},
+        filter:function(event,player){
+          return player.storage['chou'] < 4
+        },
+        content:function(){
+          "step 0"
+          if(player.countCards('h')){
+            player.chooseCard('选择'+trigger.num+'张手牌交给'+get.translation(trigger.source),true,trigger.num).ai=function(card){
+              if(get.attitude(player,trigger.player)>0){
+                return 9-get.value(card);
+              }
+              if(player.countCards('h',{name:'shan'})) return -1;
+              return 7-get.value(card);
+            }
+          }
+          "step 1"
+          if(result.bool){
+            trigger.source.gain(result.cards,player);
+          }
+          player.addMark('chou',trigger.num)
+          player.gainMaxHp(trigger.num)
+        }
+      },
+
+      shane_e:{
+        forced:true,
+        trigger:{player:"damageBefore"},
+        filter:function(event,player){
+          return player.storage['chou'] >= 4
+        },
+        content:function(){
+          "step 0"
+          if(trigger.source.countCards('h')){
+            trigger.source.chooseToDiscard(true,trigger.num,'h');
+          }
+          "step 1"
+          player.addMark('chou')
+          if(player.maxHp > 1){
+            player.loseMaxHp(trigger.num)
+            trigger.cancel();
+          }
+        }
+      },
+
+      xianchou1: {
+        skillAnimation: true,
+        animationColor: "black",
+        unique: true,
+        juexingji: true,
+        trigger: { player: "phaseZhunbeiBegin" },
+        forced: true,
+        init:function(player){
+          player.storage.xianchou1 = false
+        },
+        filter: function (event, player) {
+          return player.storage['chou'] >= 4 && !player.storage.xianchou1;
+        },
+        content: function () {
+          player.recover()
+          player.addSkill("pixie");
+          player.storage.xianchou1 = true
+        },
+      },
+
+
     },
     translate: {
       yuwentai: "宇文泰",
@@ -582,9 +691,15 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       zixia:"紫霞",
       zixia_info:"当你受到伤害后，你可以进行一次判定，所谓♥️ 或♦️ ，你回复一点血量;若为♠️ 或♣️ ，你过得造成伤害的牌。",
       zigong:"自宫",
-      zigong_info:"你的回合内，你可以发动此技能。你降低一点体力上限，体力值扣除至一点，然后你的性别修改为太监，然后你获得辟邪技能。",
+      zigong_info:"限定技。你的回合内，你可以发动此技能。你降低一点体力上限，体力值扣除至一点，然后你的性别修改为太监，然后你获得辟邪技能。",
       pixie:"辟邪",
-      pixie_info:"你使用杀次数+1;你使用杀的目标+1。"
+      pixie_info:"锁定技。你使用杀次数+1;你使用杀的目标+1。",
+      linpingzhi:"林平之",
+      shane:"善恶",
+      shane_info:"锁定技。当你的【仇】标记小于4时，你受到伤害前，若你有手牌，你必须给伤害来源y张(y为伤害数)手牌，然后获得y个【仇】标记并加一点体力上限;当你【仇】标记大于4时，你受到伤害前，若你的体力上限大于y，你改为失去y点体力上限，若伤害源有手牌，你令其弃置y张手牌，并获得y个【仇】标记。你的手牌上限数+x（x为【仇】标记的数量）。",
+      xianchou1_info:"觉醒技。准备阶段，若你的【仇】标记不小于4，你回复一点血量，性别变为太监，并获得【辟邪】技能。",
+      xianchou1:"陷仇",
+      chou:"仇"
     },
   };
 });

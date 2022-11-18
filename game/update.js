@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.59',
+	version:'1.9.120.60',
 	update:'1.9.120',
 	changeLog:[
-		'调整默认布局',
+		'新增林平之',
 	],
 	files:[
 		'image/character/yuebuqun.jpg',
