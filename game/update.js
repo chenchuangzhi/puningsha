@@ -5,6 +5,7 @@ window.noname_update={
 		'新增林平之',
 	],
 	files:[
+		'image/character/linpingzhi.jpg',
 		'image/character/yuebuqun.jpg',
 	    'image/character/helage.jpg',
 		'image/character/chengyaojin.jpg',
