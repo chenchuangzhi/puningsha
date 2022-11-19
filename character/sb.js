@@ -615,7 +615,12 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     player.chooseToDiscard('h') // 选择弃置一张手牌
                     "step 1"
                     if(result.bool){ // 有没有弃置手牌
-                        player.chooseTarget(true) // 选择目标
+                        player.chooseTarget(true).set('ai', function (target) {
+                            var att = get.attitude(_status.event.player, target);
+                            if (att > 0) return att + 1;
+                            if (att == 0) return Math.random();
+                            return att;
+                        }) // 选择目标
                     }
                     "step 2"
                     if(result.bool && result.targets && result.targets.length > 0){ // 是否选择了目标
@@ -625,6 +630,14 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     }
                 },
                 group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
+                ai:{
+                    target:function(){
+                        return -1
+                    },
+                    player:function(){
+                        return 1
+                    }
+                }
             },
             dunai_duor:{
                     trigger:{//时机:
@@ -657,7 +670,12 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                       },
                     content:function(){//技能内容:
                         "step 0"
-                            player.chooseTarget(true)
+                            player.chooseTarget(true).set('ai', function (target) {
+                                var att = get.attitude(_status.event.player, target);
+                                if (att > 0) return att + 1;
+                                if (att == 0) return Math.random();
+                                return att;
+                            })
                         "step 1"
                             let r = result.targets // 选择的目标数组
                             r[0].addMark('dunai') // 给该角色加上一层毒奶标记
@@ -787,6 +805,13 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     if (event.delay) game.delay(0.5);
                     event.delay = false;
                     if (event.targets3.length) event.goto(4);
+                },
+                ai:{
+                    player:function(player){
+                        if(player.countCards('he','zhuge')) return 1
+                        if(player.hp < 2) return 1
+                        return -1
+                    }
                 }
             },
             yaowan: {

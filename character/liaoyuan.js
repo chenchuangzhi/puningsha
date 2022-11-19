@@ -223,17 +223,19 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           player.gainMaxHp(5);
           player.recover(10);
         },
-        ai: {
-          unequip: true,
-          result: {
-            player: function (player) {
-              if (player.hp < 3) {
-                return 1;
-              }
-              return 0;
-            },
-          },
-        },
+        ai:{
+          unequip2:true,
+
+					basic:{
+						order:6
+					},
+					result:{
+						player:function(player){
+							if(player.hp>3) return -1;
+							return 1;
+						}
+					}
+				}
       },
       yujin1: {
         forced: true,
@@ -528,11 +530,15 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         },
         ai:{
           result:{
-            player:function(player,target,card,num){
-              if(player.countCards('h','tao')){
-                return 1
+            basic:{
+              order:1
+            },
+            result:{
+              player:function(player){
+                if(player.countCards('h','tao') < 1) return -1;
+                if(player.hp>3) return -1;
+                return 1;
               }
-              return 0.5
             }
           }
         }
@@ -661,7 +667,18 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           '锦囊牌'
         ]
           "step 0"
-          player.chooseControl().set('prompt','请预测'+get.translation(targets[0])+'手里有那种牌型').set('choiceList',list);
+          player.chooseControl().set('prompt','请预测'+get.translation(targets[0])+'手里有那种牌型').set('choiceList',list).set('ai',function(){
+						var player=_status.event.player;
+						if(!player.hasSha()||!player.hasShan()||player.hp==1) return 0;
+            const rand = Math.random()
+            if(rand > 0.4){
+              return 0
+            }else if(rand < 0.1){
+              return 1
+            }else{
+              return 2
+            }
+					});
           "step 1"
           if(result.control === "选项一"){
             if(targets[0].countCards('h',{type:'basic'}) >0){
@@ -715,6 +732,12 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           player.gain(result.cards,target,'giveAuto');
         }
       },
+      ai:{
+        result:{
+          order:1,
+          player:1,
+        }
+      }
     },
     duanyan1:{
       trigger:{target:'shaBefore'},
@@ -729,7 +752,16 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           '锦囊牌'
         ]
         "step 0"
-        player.chooseControl().set('prompt','请预测'+get.translation(trigger.player)+'手里有那种牌型').set('choiceList',list);
+        player.chooseControl().set('prompt','请预测'+get.translation(trigger.player)+'手里有那种牌型').set('choiceList',list).set('ai',function(){
+          const rand = Math.random()
+          if(rand > 0.4){
+            return 0
+          }else if(rand < 0.1){
+            return 1
+          }else{
+            return 2
+          }
+        });
         "step 1"
         if(result.control === "选项一"){
           if(trigger.player.countCards('h',{type:'basic'}) >0){
