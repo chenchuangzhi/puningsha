@@ -9,7 +9,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             weizhaoxiang: ['female', 'daba', 4, ['wufanghun', 'weifuhan']],
             fengdi: ["female", "daba", 4, ["ark_pojun", "ark_bitang"]],
             huafalin: ["female", "daba", 3, ["buwen2", "bangneng2", "shenji2"]],
-            helage:["male","daba",3,["xianyue","qiusheng","tashijiangjun"]],
+            helage: ["male", "daba", 3, ["xianyue", "qiusheng", "tashijiangjun"]],
+            sp_nengtianshi: ["famale", "daba", 3, ["sp_guozai", "sp_zhufu"]],
         },
         skill: {
             //赵襄
@@ -530,9 +531,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
                 content: function () {
                     'step 0'
-                    player.chooseCard('选择一张牌置于牌堆顶','he',true);
+                    player.chooseCard('选择一张牌置于牌堆顶', 'he', true);
                     'step 1'
-                    player.lose(result.cards,ui.cardPile,'insert');
+                    player.lose(result.cards, ui.cardPile, 'insert');
                     player.draw(1, 'bottom');
                 },
             },
@@ -546,11 +547,11 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     "step 0"
                     player.chooseToDiscard('h') // 选择弃置一张手牌
                     "step 1"
-                    if(result.bool){ // 有没有弃置手牌
+                    if (result.bool) { // 有没有弃置手牌
                         player.chooseTarget(true) // 选择目标
                     }
                     "step 2"
-                    if(result.bool && result.targets && result.targets.length > 0){ // 是否选择了目标
+                    if (result.bool && result.targets && result.targets.length > 0) { // 是否选择了目标
                         let r = result.targets // 选择的目标数组
                         // trigger是选择的目标
                         r[0].addSkill("wusheng") // 给该角色增加神技
@@ -618,8 +619,106 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 content: function () {
                     trigger.cancel();
                 },
-                ai:{
-                    hpUnRe:true,
+                ai: {
+                    hpUnRe: true,
+                },
+            },
+
+            "sp_guozai": {
+                group: ["sp_guozai_pro2begin"],
+                firstDo: true,
+                trigger: {
+                    player: "useCard1",
+                },
+                forced: true,
+                filter: function (event, player) {
+                    return event.card.name == 'sha' && player.countUsed('sha', true) > 1 && event.getParent().type == 'phase';
+                },
+                content: function () {
+                },
+                mod: {
+                    cardUsable: function (card, player, num) {
+                        if (card.name == 'sha') return num + 1;
+                    },
+                    attackFrom: function (from, to, distance, player) {
+                        return distance - Infinity;
+                    },
+                },
+                subSkill: {
+                    "pro2": {
+                        enable: "chooseToUse",
+                        filterCard: function (card, player) {
+                            return get.color(card) == player.storage.sp_guozai_color;
+                        },
+                        position: "hes",
+                        viewAs: {
+                            name: "sha",
+                        },
+                        viewAsFilter: function (player) {
+                            return player.countCards('hes', function (card) {
+                                return get.color(card) == player.storage.sp_guozai_color;
+                            });
+                        },
+                        check: function (card) {
+                            return 4 - get.value(card)
+                        },
+                        prompt: function () {
+                            var player = _status.event.player;
+                            var str = '将一张' + (player.storage.sp_guozai_color == 'red' ? '红' : '黑') + '色牌当做【杀】使用';
+                            return str;
+                        },
+                        sub: true,
+                    },
+                    "pro2begin": {
+                        trigger: {
+                            player: "phaseZhunbeiBegin",
+                        },
+                        filter: function (event, player) {
+                            return true
+                        },
+                        popup: false,
+                        prompt: "过载：你可以进行一次判定，此回合内你可以将与判定牌同颜色的牌视为【杀】使用",
+                        content: function () {
+                            'step 0'
+                            player.logSkill('sp_guozai')
+                            player.judge();
+                            'step 1'
+                            player.gain(result.card, 'gain2');
+                            player.storage.sp_guozai_color = result.color
+                            player.addTempSkill('sp_guozai_pro2')
+                        },
+                        sub: true,
+                    },
+                },
+            },
+            "sp_zhufu": {
+                trigger: {
+                    global: "gameDrawAfter",
+                    player: "enterGame",
+                },
+                direct: true,
+                filter: function (event, player) {
+                    return game.players.length > 1;
+                },
+                content: function () {
+                    'step 0'
+                    player.chooseTarget('你可以选择【祝福】的目标', lib.translate.sp_zhufu_info, function (card, player, target) {
+                        return target != player
+                    }).set('ai', function (target) {
+                        var att = get.attitude(_status.event.player, target);
+                        if (att > 0) return att + 1;
+                        if (att == 0) return Math.random();
+                        return att;
+                    }).animate = false;
+                    'step 1'
+                    if (result.bool) {
+                        var target = result.targets[0];
+                        player.logSkill('sp_zhufu', target)
+                        player.gainMaxHp(true);
+                        player.recover();
+                        target.gainMaxHp(true);
+                        target.recover();
+                    }
                 },
             },
 
@@ -645,13 +744,18 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             bangneng2_info: '当其他角色使用杀时，你可以将一张牌置于牌堆顶，然后从牌堆底摸一张牌',
             shenji2: '神技',
             shenji2_info: '出牌阶段限一次，你可以弃置一张牌，并指定一名角色，该角色获取将红牌当杀的神技',
-            helage:'赫拉格',
+            helage: '赫拉格',
             xianyue: "弦月",
             xianyue_info: "锁定技，你造成伤害时回复1点体力。当你的体力不以此法回复时，防止之。",
             qiusheng: "求生",
             qiusheng_info: "全名求生剑法，锁定技，出牌阶段，你可额外使用X张【杀】（X为你已损体力值）。每回合限一次，你进入濒死状态时摸四张牌，并开始一个独立的出牌阶段。",
             tashijiangjun: "他是将军！",
             tashijiangjun_info: "",
+            sp_nengtianshi: 'sp能天使',
+            sp_guozai: "过载",
+            sp_guozai_info: "准备阶段，你可以进行一次判定并获得判定牌，此回合内你可以将与判定牌同颜色的牌视为【杀】使用；你使用杀无次数加1且无距离限制",
+            sp_zhufu: "祝福",
+            sp_zhufu_info: "游戏开始时，你可以选择一名其他角色，你与其体力上限与体力值+1",
         },
     };
 });
