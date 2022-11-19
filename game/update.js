@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.60',
+	version:'1.9.120.61',
 	update:'1.9.120',
 	changeLog:[
-		'新增林平之',
+		'优化林平之',
 	],
 	files:[
 		'image/character/linpingzhi.jpg',
