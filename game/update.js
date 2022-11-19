@@ -1,10 +1,11 @@
 window.noname_update={
-	version:'1.9.120.62',
+	version:'1.9.120.63',
 	update:'1.9.120',
 	changeLog:[
-		'优化林平之',
+		'更新预言家',
 	],
 	files:[
+		'image/character/yuyanjia.jpg',
 		'image/character/linpingzhi.jpg',
 		'image/character/yuebuqun.jpg',
 	    'image/character/helage.jpg',

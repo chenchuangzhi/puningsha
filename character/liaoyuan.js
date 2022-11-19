@@ -11,7 +11,8 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       hanxin: ["male", "liaoyuan2", 4, ["juejin", "xianzhen1"]],
       nengtianshi: ["female", "liaoyuan2", 4, ["guozai","paoguang2"]],
       yuebuqun:["male","liaoyuan2",4,["zixia","zigong"]],
-      linpingzhi:["male","liaoyuan2",4,['shane',"xianchou1"]]
+      linpingzhi:["male","liaoyuan2",4,['shane',"xianchou1"]],
+      yuyanjia:["female","liaoyuan2",3,['yuyan1','duanyan1']]
     },
     skill: {
       wuzhuang: {
@@ -384,7 +385,6 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           let i = Math.floor(Math.random() * pl.length);
           let p = pl[i];
           var createDialog = function (player) {
-            if (_status.connectMode) lib.configOL.choose_timeout = "2";
             var str = get.translation(player) + "变身成了" + get.translation(p);
             ui.create.dialog(str);
           };
@@ -529,7 +529,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         ai:{
           result:{
             player:function(player,target,card,num){
-              if(player.countCards('h','tao') && player.countCards('h','sha')){
+              if(player.countCards('h','tao')){
                 return 1
               }
               return 0.5
@@ -581,7 +581,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         forced:true,
         trigger:{player:"damageBefore"},
         filter:function(event,player){
-          return player.storage['chou'] <= 4
+          return player.storage['chou'] < 4
         },
         content:function(){
           "step 0"
@@ -607,7 +607,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         forced:true,
         trigger:{player:"damageBefore"},
         filter:function(event,player){
-          return player.storage['chou'] > 4
+          return player.storage['chou'] >= 4
         },
         content:function(){
           "step 0"
@@ -645,8 +645,127 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         },
       },
 
+      yuyan1:{
+        enable:"phaseUse",
+        usable:1,
+        filterTarget:function(card, player, target){
+          if(target==player) return false;
+          if(!ui.selected.targets.length) return target.countCards('h')>0;
+          return false
+        },
+        selectTarget:1,
+        content:function(){
+          const list =[ 
+          '基本牌',
+          '装备牌',
+          '锦囊牌'
+        ]
+          "step 0"
+          player.chooseControl().set('prompt','请预测'+get.translation(targets[0])+'手里有那种牌型').set('choiceList',list);
+          "step 1"
+          if(result.control === "选项一"){
+            if(targets[0].countCards('h',{type:'basic'}) >0){
+              player.viewHandcards(targets[0])
+              targets[0].chooseCard(function(card,player){
+                var name=get.name(card,player);
+                return get.type(name)=='basic';
+              },'h','请交给'+get.translation(player)+
+              '一张基本牌',true).set('ai',function(card){
+                return get.attitude(target,_status.event.sourcex)>=0?1:-1;
+              })
+          }else{
+            var str = get.translation(player) + "预言失败";
+            ui.create.dialog(str);
+          }    
+        }
 
+        if(result.control === "选项二"){
+          if(targets[0].countCards('h',{type:'equip'}) >0){
+            player.viewHandcards(targets[0])
+            targets[0].chooseCard(function(card,player){
+              var name=get.name(card,player);
+              return get.type(name)=='equip';
+            },'h','请交给'+get.translation(player)+
+            '一张装备牌',true).set('ai',function(card){
+              return get.attitude(target,_status.event.sourcex)>=0?1:-1;
+            })
+          }else{
+            var str = get.translation(player) + "预言失败";
+            ui.create.dialog(str);
+          }   
+        }
+
+        if(result.control === "选项三"){
+          if(targets[0].countCards('h',{type:['trick','delay']})>0){
+            player.viewHandcards(targets[0])
+            targets[0].chooseCard(function(card,player){
+              var name=get.name(card,player);
+              return get.type(name)=='trick' || get.type(name)=='delay';
+            },'h','请交给'+get.translation(player)+
+            '一张锦囊牌',true).set('ai',function(card){
+              return get.attitude(target,_status.event.sourcex)>=0?1:-1;
+            })
+          }else{
+            var str = get.translation(player) + "预言失败";
+            ui.create.dialog(str);
+          }   
+        }
+        "step 2"
+        if(result.bool){
+          player.gain(result.cards,target,'giveAuto');
+        }
+      },
     },
+    duanyan1:{
+      trigger:{target:'shaBefore'},
+      forced: true,
+      filter:function(event,player){
+        return event.card.name=='sha'
+      },
+      content:function(){
+        const list =[ 
+          '基本牌',
+          '装备牌',
+          '锦囊牌'
+        ]
+        "step 0"
+        player.chooseControl().set('prompt','请预测'+get.translation(trigger.player)+'手里有那种牌型').set('choiceList',list);
+        "step 1"
+        if(result.control === "选项一"){
+          if(trigger.player.countCards('h',{type:'basic'}) >0){
+          trigger.cancel()
+          var str = get.translation(player) + "预言成功";
+          ui.create.dialog(str);
+        }else{
+          var str = get.translation(player) + "预言失败";
+          ui.create.dialog(str);
+        }    
+      }
+
+      if(result.control === "选项二"){
+        if(trigger.player.countCards('h',{type:'equip'}) >0){
+          trigger.cancel()
+          var str = get.translation(player) + "预言成功";
+          ui.create.dialog(str);
+        }else{
+          var str = get.translation(player) + "预言失败";
+          ui.create.dialog(str);
+        }   
+      }
+
+      if(result.control === "选项三"){
+        if(trigger.player.countCards('h',{type:['trick','delay']})>0){
+          trigger.cancel()
+          var str = get.translation(player) + "预言成功";
+          ui.create.dialog(str);
+        }else{
+          var str = get.translation(player) + "预言失败";
+          ui.create.dialog(str);
+        }   
+      }
+      }
+    }
+  },
     translate: {
       yuwentai: "宇文泰",
       wuzhuang: "武装",
@@ -698,10 +817,15 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       pixie_info:"锁定技。你使用杀次数+1;你使用杀的目标+1。",
       linpingzhi:"林平之",
       shane:"善恶",
-      shane_info:"锁定技。当你的【仇】标记小于等于4时，你受到伤害前，若你有手牌，你必须给伤害来源y张(y为伤害数)手牌，然后获得y个【仇】标记并加一点体力上限;当你【仇】标记大于4时，你受到伤害前，若你的体力上限大于y，你改为失去y点体力上限，若伤害源有手牌，你令其弃置y张手牌，并获得y个【仇】标记。你的手牌上限数+x（x为【仇】标记的数量）。",
+      shane_info:"锁定技。当你的【仇】标记小于4时，你受到伤害前，若你有手牌，你必须给伤害来源y张(y为伤害数)手牌，然后获得y个【仇】标记并加一点体力上限;当你【仇】标记大于4时，你受到伤害前，若你的体力上限大于y，你改为失去y点体力上限，若伤害源有手牌，你令其弃置y张手牌，并获得y个【仇】标记。你的手牌上限数+x（x为【仇】标记的数量）。",
       xianchou1_info:"觉醒技。准备阶段，若你的【仇】标记不小于4，你摸三张牌，性别变为太监，并获得【辟邪】技能。",
       xianchou1:"陷仇",
-      chou:"仇"
+      chou:"仇",
+      yuyanjia:"预言家",
+      yuyan1:"预言",
+      yuyan1_info:"每回合限一次，你的回合内，选择一个有手牌的其他角色，然后预测其手牌里，有哪种牌型（基本、装备、锦囊），然后其展示手牌于你。若预测成功，其选择一张该类型手牌给你。",
+      duanyan1:"断言",
+      duanyan1_info:"当你成为杀的目标时，若其有剩余手牌，你可以预测其手牌，有哪种牌型（基本、装备、锦囊），预测成功则此杀取消。"
     },
-  };
+  }
 });
