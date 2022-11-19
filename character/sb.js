@@ -754,6 +754,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
 					}
                 },
                 ai:{
+                    basic:{
+                        order:20
+                    },
                     result:{//收益(只有主动技可以写)
                         player:1
                     },
@@ -807,6 +810,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     if (event.targets3.length) event.goto(4);
                 },
                 ai:{
+                    basic:{
+                        order:20
+                    },
                     player:function(player){
                         if(player.countCards('he','zhuge')) return 1
                         if(player.hp < 2) return 1

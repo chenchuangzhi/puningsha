@@ -187,7 +187,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         },
         content: function () {
           if (trigger.card && trigger.card.name === "sha") {
-            trigger.num = player.maxHp - player.hp;
+              trigger.num = player.maxHp - player.hp + (trigger.num - 1);
           }
         },
       },
@@ -376,12 +376,16 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         trigger: {
           player: ["phaseZhunbeiBegin", "phaseJieshuBegin"],
         },
+        init:function(player){
+          player.storage.baibian = {
+            old:player.skills,
+            new:[]
+          }
+        },
         content: function () {
           "step 0";
-          if (player.skills && player.skills.length > 1) {
-            let s = player.skills.slice(1);
-            player.removeSkill(s);
-          }
+          player.removeSkill(player.storage.baibian["new"]);
+          player.storage.baibian["new"] = []
           "step 1";
           const pl = game.players.filter((item) => item !== player);
           let i = Math.floor(Math.random() * pl.length);
@@ -392,6 +396,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           };
           game.broadcastAll(createDialog, player);
           player.addSkill(p.skills);
+          player.storage.baibian["new"].push(...p.skills)
         },
       },
       juejin: {
@@ -531,7 +536,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         ai:{
           result:{
             basic:{
-              order:1
+              order:9
             },
             result:{
               player:function(player){
