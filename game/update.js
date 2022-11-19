@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.64',
+	version:'1.9.120.65',
 	update:'1.9.120',
 	changeLog:[
-		'更新sp能天使',
+		'削弱sp能天使',
 	],
 	files:[
 	    'image/character/sp_nengtianshi.jpg',

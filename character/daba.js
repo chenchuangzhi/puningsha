@@ -624,6 +624,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
             },
 
+            //sp能天使
             "sp_guozai": {
                 group: ["sp_guozai_pro2begin"],
                 firstDo: true,
@@ -640,9 +641,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     cardUsable: function (card, player, num) {
                         if (card.name == 'sha') return num + 1;
                     },
-                    attackFrom: function (from, to, distance, player) {
-                        return distance - Infinity;
-                    },
+//                    attackFrom: function (from, to, distance, player) {
+//                        return distance - Infinity;
+//                    },
                 },
                 subSkill: {
                     "pro2": {
@@ -753,7 +754,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             tashijiangjun_info: "",
             sp_nengtianshi: 'sp能天使',
             sp_guozai: "过载",
-            sp_guozai_info: "准备阶段，你可以进行一次判定并获得判定牌，此回合内你可以将与判定牌同颜色的牌视为【杀】使用；你使用杀无次数加1且无距离限制",
+            sp_guozai_info: "准备阶段，你可以进行一次判定并获得判定牌，此回合内你可以将与判定牌同颜色的牌视为【杀】使用且使用杀次数加1",
             sp_zhufu: "祝福",
             sp_zhufu_info: "游戏开始时，你可以选择一名其他角色，你与其体力上限与体力值+1",
         },
