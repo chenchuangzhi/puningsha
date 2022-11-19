@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.61',
+	version:'1.9.120.62',
 	update:'1.9.120',
 	changeLog:[
 		'优化林平之',

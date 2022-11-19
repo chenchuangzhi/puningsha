@@ -637,7 +637,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           return player.storage['chou'] >= 4 && !player.storage.xianchou1;
         },
         content: function () {
-          player.recover()
+          player.draw(3)
           player.addSkill("pixie");
           game.log(player, '获得技能', '【' + get.translation('pixie') + '】');
           player.sex = "fmale"
@@ -699,7 +699,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       linpingzhi:"林平之",
       shane:"善恶",
       shane_info:"锁定技。当你的【仇】标记小于等于4时，你受到伤害前，若你有手牌，你必须给伤害来源y张(y为伤害数)手牌，然后获得y个【仇】标记并加一点体力上限;当你【仇】标记大于4时，你受到伤害前，若你的体力上限大于y，你改为失去y点体力上限，若伤害源有手牌，你令其弃置y张手牌，并获得y个【仇】标记。你的手牌上限数+x（x为【仇】标记的数量）。",
-      xianchou1_info:"觉醒技。准备阶段，若你的【仇】标记不小于4，你回复一点血量，性别变为太监，并获得【辟邪】技能。",
+      xianchou1_info:"觉醒技。准备阶段，若你的【仇】标记不小于4，你摸三张牌，性别变为太监，并获得【辟邪】技能。",
       xianchou1:"陷仇",
       chou:"仇"
     },
