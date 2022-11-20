@@ -758,7 +758,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           '♦️'
         ]
         "step 0"
-        player.chooseControl().set('prompt','请预测'+get.translation(trigger.player)+'手里有那种牌型').set('choiceList',list).set('ai',function(){
+        player.chooseControl().set('prompt','请预测牌堆顶一张牌的花色').set('choiceList',list).set('ai',function(){
           const rand = Math.random()
           if(rand >= 0.75){
             return 0
