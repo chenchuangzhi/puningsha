@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.75',
+	version:'1.9.120.76',
 	update:'1.9.120',
 	changeLog:[
-		'调整部分武将ai',
+		'小智测试',
 	],
 	files:[
 		'image/character/yuyanjia.jpg',

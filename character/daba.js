@@ -729,7 +729,7 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             pika:{
 				enable: "chooseToUse",
 				content:function(){
-					var fellow = game.addFellow(4,"penhuolong","");
+					var fellow = game.addPlayer(game.players.length + game.dead.length,"penhuolong","");
 					fellow.directgain(get.cards(4));
                     fellow.side=true;
                     fellow.ai.friend.push(player);
