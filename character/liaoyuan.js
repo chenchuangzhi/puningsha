@@ -535,12 +535,11 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         },
         ai:{
           result:{
-            order:7,
+            order:9,
             result:{
               player:function(player){
-                if(player.countCards('h','tao') < 1) return -1;
-                if(player.hp>3) return -1;
-                return 1;
+                if(player.countCards('h') > 3 && player.hp<3) return 1;
+                return -1;
               }
             }
           }
