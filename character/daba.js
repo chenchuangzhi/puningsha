@@ -12,8 +12,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             helage: ["male", "daba", 3, ["xianyue", "qiusheng", "tashijiangjun"]],
             sp_nengtianshi: ["female", "daba", 3, ["sp_guozai", "sp_zhufu"]],
             xiaozhi: ["male", "daba", 3, ["pika", "penhuo"]],
-            pikaqiu:["male","daba",3,["pika_skill"]],
-            penhuolong:["male","daba",3,["penhuo_skill"]],
+            pikaqiu: ["male", "daba", 3, ["pika_skill"]],
+            penhuolong: ["male", "daba", 3, ["penhuo_skill"]],
         },
         skill: {
             //赵襄
@@ -644,9 +644,9 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     cardUsable: function (card, player, num) {
                         if (card.name == 'sha') return num + 1;
                     },
-//                    attackFrom: function (from, to, distance, player) {
-//                        return distance - Infinity;
-//                    },
+                    //                    attackFrom: function (from, to, distance, player) {
+                    //                        return distance - Infinity;
+                    //                    },
                 },
                 subSkill: {
                     "pro2": {
@@ -726,55 +726,61 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
             },
             //小智
-            penhuo:{
-				enable: "phaseUse",
-                usable:1,
-                init:function(player){
+            penhuo: {
+                enable: "phaseUse",
+                usable: 1,
+                init: function (player) {
                     player.storage["penhuo"] = false
                 },
-                filter:function(event,player){
+                filter: function (event, player) {
                     return !player.storage["penhuo"]
                 },
-				content:function(){
-					var fellow = game.addPlayer(100,"penhuolong","");
-					fellow.directgain(get.cards(4));
+                content: function () {
+                    var fellow = game.addFellow(10, "penhuolong");
+                    fellow.dataset.position = 10;
+                    fellow.style.left = 'calc(74% )';
+                    fellow.style.top = 'calc(42% )';
+                    fellow.directgain(get.cards(4));
                     fellow.addSkill("penhuo_skill")
-                    fellow.side=true;
+                    fellow.side = player.side;
                     fellow.ai.friend.push(player);
-					fellow.identity=player.identity;
+                    fellow.identity = player.identity;
                     player.storage["penhuo"] = true
-				}
-			},
-            pika:{
-				enable: "phaseUse",
-                usable:1,
-                init:function(player){
+                }
+            },
+            pika: {
+                enable: "phaseUse",
+                usable: 1,
+                init: function (player) {
                     player.storage["pika"] = false
                 },
-                filter:function(event,player){
+                filter: function (event, player) {
                     return !player.storage["pika"]
                 },
-				content:function(){
-					var fellow = game.addPlayer(200,"pikaqiu","");
-					fellow.directgain(get.cards(4));
+                content: function () {
+                    var fellow = game.addFellow(9, "pikaqiu");
+                    fellow.dataset.position = 9;
+                    fellow.style.left = 'calc(16% )';
+                    fellow.style.top = 'calc(42% )';
+                    fellow.directgain(get.cards(4));
                     fellow.addSkill("pika_skill")
-                    fellow.side=true;
+                    fellow.side = player.side;
                     fellow.ai.friend.push(player);
-					fellow.identity=player.identity;
+                    fellow.identity = player.identity;
                     player.storage["pika"] = true
-				}
-			},
-            penhuo_skill:{
-                forced:true,
-                trigger:{source:"damageBegin"},
-                content:function(){
+                }
+            },
+            penhuo_skill: {
+                forced: true,
+                trigger: { source: "damageBegin" },
+                content: function () {
                     trigger.card && (trigger.card.nature = 'fire')
                 }
             },
-            pika_skill:{
-                forced:true,
-                trigger:{source:"damageBegin"},
-                content:function(){
+            pika_skill: {
+                forced: true,
+                trigger: { source: "damageBegin" },
+                content: function () {
                     trigger.card && (trigger.card.nature = 'thunder')
                 }
             },
@@ -812,17 +818,17 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sp_guozai_info: "准备阶段，你可以进行一次判定并获得判定牌，此回合内你可以将与判定牌同颜色的牌视为【杀】使用且使用杀次数加1",
             sp_zhufu: "祝福",
             sp_zhufu_info: "游戏开始时，你可以选择一名其他角色，你与其体力上限与体力值+1",
-            xiaozhi:"小智",
-            pika:"皮卡",
-            penhuo:"喷火",
-            pika_info:"限定技，出牌阶段，你可以召唤一个皮卡丘",
-            penhuo_info:"限定技，出牌阶段，你可以召唤一个喷火龙",
-            pikaqiu:"皮卡丘",
-            penhuolong:"喷火龙",
-            pika_skill:"皮卡",
-            pika_skill_info:"锁定技。你的伤害均视为雷电伤害",
-            penhuo_skill:"喷火",
-            penhuo_skill_info:"锁定技。你的伤害均视为火焰伤害"
+            xiaozhi: "小智",
+            pika: "皮卡",
+            penhuo: "喷火",
+            pika_info: "限定技，出牌阶段，你可以召唤一个皮卡丘",
+            penhuo_info: "限定技，出牌阶段，你可以召唤一个喷火龙",
+            pikaqiu: "皮卡丘",
+            penhuolong: "喷火龙",
+            pika_skill: "皮卡",
+            pika_skill_info: "锁定技。你的伤害均视为雷电伤害",
+            penhuo_skill: "喷火",
+            penhuo_skill_info: "锁定技。你的伤害均视为火焰伤害"
         },
     };
 });
