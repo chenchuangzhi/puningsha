@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.69',
+	version:'1.9.120.73',
 	update:'1.9.120',
 	changeLog:[
 		'修改预言家的断言',
