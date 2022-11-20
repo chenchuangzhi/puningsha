@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.68',
+	version:'1.9.120.69',
 	update:'1.9.120',
 	changeLog:[
-		'调整燎原ai智能化',
+		'加大联机开放扩展力度，恢复连续鸡蛋',
 	],
 	files:[
 		'image/character/yuyanjia.jpg',

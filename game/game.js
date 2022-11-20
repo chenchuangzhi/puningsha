@@ -7674,15 +7674,18 @@
 								catch(e){
 									console.log(e);
 								}
-								lib.init.onload=backup_onload;
+//手杀ui								lib.init.onload=backup_onload;
 								_status.evaluatingExtension=false;
 							}
-							else {
+							else
+//开始							if(lib.config.mode!='connect'||(!localStorage.getItem(lib.configprefix+'directstart')&&show_splash))
+							{
 								extensionlist.push(lib.config.extensions[i]);
 							}
 						}
 					}
 					else{
+//						if(lib.config.mode!='connect'||(!localStorage.getItem(lib.configprefix+'directstart')&&show_splash)){
 							var alerted=false;
 							for(var i=0;i<lib.config.extensions.length;i++){
 								if(window.bannedExtensions.contains(lib.config.extensions[i])){
@@ -7692,7 +7695,8 @@
 								}
 								game.import('extension',{name:lib.config.extensions[i]});
 							}
-						}
+//结束						}
+					}
 					var loadPack=function(){
 						var toLoad=lib.config.all.cards.length+lib.config.all.characters.length+1;
 						var packLoaded=function(){
@@ -7753,7 +7757,11 @@
 					var styleLoaded=function(){
 						styleToLoad--;
 						if(styleToLoad==0){
-							if(extensionlist.length){
+							if(extensionlist.length
+							//开始
+							//&&(lib.config.mode!='connect'||show_splash)
+							//结束
+							){
 								var extToLoad=extensionlist.length;
 								var extLoaded=function(){
 									extToLoad--;
@@ -9040,11 +9048,14 @@
 						clickedNode=true;
 						lib.config.mode=this.link;
 						game.saveConfig('mode',this.link);
+//开始
+/*
 						if(this.link=='connect'){
 							localStorage.setItem(lib.configprefix+'directstart',true);
 							game.reload();
 						}
 						else{
+*/
 							if(game.layout!='mobile'&&lib.layoutfixed.indexOf(lib.config.mode)!==-1){
 								game.layout='mobile';
 								ui.css.layout.href=lib.assetURL+'layout/'+game.layout+'/layout.css';
@@ -9065,7 +9076,8 @@
 							this.listenTransition(function(){
 								lib.init.js(lib.assetURL+'mode',lib.config.mode,proceed);
 							},500);
-						}
+//						}
+//结束
 					}
 					var downNode=function(){
 						this.classList.add('glow');
@@ -10206,6 +10218,10 @@
 			egg:'鸡蛋',
 			wine:'酒杯',
 			shoe:'拖鞋',
+//开始
+			flowerSpam:'连续鲜花',
+			eggSpam:'连续鸡蛋',
+//结束
 			yuxisx:'玉玺',
 			jiasuo:'枷锁',
 			junk:'平凡',
@@ -18282,6 +18298,27 @@
 				},
 				chat:function(str){
 					if(get.is.banWords(str)) return;
+
+//开始
+					if(str[0]=='/'){
+						var chat=str.slice(1);
+						if(chat.indexOf(' ')>=0){
+							chat=chat.split(' ');
+							var func=chat.shift();
+							if(func=='audio'&&chat.length){
+								var audio=chat.shift();
+								game.trySkillAudio(audio,this,true);
+								if(chat.length){
+									str=chat.join(' ');
+								}
+								else{
+									return;
+								}
+							}
+						}
+					}
+//结束
+
 					lib.element.player.say.call(this,str);
 					game.broadcast(function(id,str){
 						if(lib.playerOL[id]){
@@ -30025,7 +30062,7 @@
 			if(type=='extension'){
 				var backup_onload=lib.init.onload;
 				game.loadExtension(content);
-				lib.init.onload=backup_onload;
+//手杀ui				lib.init.onload=backup_onload;
 			}
 			else{
 				if(!lib.imported[type]){
@@ -36673,7 +36710,7 @@
 		roundNumber:0,
 		shuffleNumber:0,
 	};
-	window['b'+'ann'+'e'+'dE'+'x'+'ten'+'s'+'i'+'o'+'ns']=['\u4fa0\u4e49','\u5168\u6559\u7a0b'];
+	window['bannedExtensions']=['\u5168\u6559\u7a0b'];
 	var ui={
 		updates:[],
 		thrown:[],
@@ -53531,6 +53568,8 @@
 							game.send('throwEmotion',node,emotion);
 						}
 						else game.me.throwEmotion(node,emotion);
+//开始
+/*
 						uiintro._close();
 						_status.throwEmotionWait=true;
 						setTimeout(function(){
@@ -53539,7 +53578,28 @@
 								for(var i of ui.throwEmotion) i.classList.remove('exclude');
 							}
 						},(emotion=='flower'||emotion=='egg')?5000:10000)
+*/
 					};
+
+					var click2=function(){
+						if(_status.dragged) return;
+						if(_status.justdragged) return;
+						var emotion=this.link.slice(0,-4);
+						if(game.online){
+							game.send('throwEmotion',node,emotion);
+						}
+						else game.me.throwEmotion(node,emotion);
+						for(var i=0;i<15;i++){
+							setTimeout(function(){
+								if(game.online){
+									game.send('throwEmotion',node,emotion);
+								}
+								else game.me.throwEmotion(node,emotion);
+							},125*(i+1));
+						}
+					};
+//结束
+
 					var td;
 					var table=document.createElement('div');
 					table.classList.add('add-setting');
@@ -53567,12 +53627,33 @@
 					for(var i=0;i<listi.length;i++){
 						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
 						ui.throwEmotion.add(td);
+//开始?
 						if(_status.throwEmotionWait) td.classList.add('exclude');
+
 						td.link=listi[i];
 						table.appendChild(td);
 						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
 						td.addEventListener(lib.config.touchscreen?'touchend':'click',click);
 					}
+
+//开始
+					uiintro.content.appendChild(table);
+					table=document.createElement('div');
+					table.classList.add('add-setting');
+					table.style.margin='0';
+					table.style.width='100%';
+					table.style.position='relative';
+					var listi=['flowerSpam','eggSpam'];
+					for(var i=0;i<listi.length;i++){
+						td=ui.create.div('.menubutton.reduce_radius.pointerdiv.tdnode');
+						ui.throwEmotion.add(td);
+						td.link=listi[i];
+						table.appendChild(td);
+						td.innerHTML='<span>'+get.translation(listi[i])+'</span>';
+						td.addEventListener(lib.config.touchscreen?'touchend':'click',click2);
+					}
+//结束
+
 					uiintro.content.appendChild(table);
 				}
 				var modepack=lib.characterPack['mode_'+get.mode()];
