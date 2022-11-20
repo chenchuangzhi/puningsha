@@ -631,11 +631,13 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
                 group:'dunai_duor', // 技能组，可以理解为有标记的人会触发的技能
                 ai:{
-                    target:function(){
-                        return -1
-                    },
-                    player:function(){
-                        return 1
+                    effect:{
+                        target:function(){
+                            return -1
+                        },
+                        player:function(){
+                            return 2
+                        }
                     }
                 }
             },

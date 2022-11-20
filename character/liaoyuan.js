@@ -535,9 +535,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         },
         ai:{
           result:{
-            basic:{
-              order:9
-            },
+            order:7,
             result:{
               player:function(player){
                 if(player.countCards('h','tao') < 1) return -1;
@@ -665,6 +663,9 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           return false
         },
         selectTarget:1,
+        check:function(event,player){
+          return get.attitude(event.player) < 0 ;
+        },
         content:function(){
           const list =[ 
           '基本牌',
@@ -676,9 +677,9 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
 						var player=_status.event.player;
 						if(!player.hasSha()||!player.hasShan()||player.hp==1) return 0;
             const rand = Math.random()
-            if(rand > 0.4){
+            if(rand > 0.5){
               return 0
-            }else if(rand < 0.1){
+            }else if(rand < 0.2){
               return 1
             }else{
               return 2
@@ -686,6 +687,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
 					});
           "step 1"
           if(result.control === "选项一"){
+            ui.create.dialog(get.translation(player) + "预言了基本牌");
             if(targets[0].countCards('h',{type:'basic'}) >0){
               player.viewHandcards(targets[0])
               targets[0].chooseCard(function(card,player){
@@ -702,6 +704,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         }
 
         if(result.control === "选项二"){
+          ui.create.dialog(get.translation(player) + "预言了装备牌");
           if(targets[0].countCards('h',{type:'equip'}) >0){
             player.viewHandcards(targets[0])
             targets[0].chooseCard(function(card,player){
@@ -718,6 +721,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         }
 
         if(result.control === "选项三"){
+          ui.create.dialog(get.translation(player) + "预言了锦囊牌");
           if(targets[0].countCards('h',{type:['trick','delay']})>0){
             player.viewHandcards(targets[0])
             targets[0].chooseCard(function(card,player){
@@ -738,9 +742,10 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         }
       },
       ai:{
+        order:6,
         result:{
-          order:1,
           player:1,
+          target:-1
         }
       }
     },
@@ -779,6 +784,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
         player.showCards(card,get.translation(player)+'开始预测');
         var suit=get.suit(card);
         if(result.control === "选项一"){
+          ui.create.dialog(get.translation(player) + "预言了♠️");
           if(suit === "spade"){
           trigger.cancel()
           player.gain(card,target,'giveAuto');
@@ -791,6 +797,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       }
 
       if(result.control === "选项二"){
+        ui.create.dialog(get.translation(player) + "预言了♥️");
         if(suit === "heart"){
           trigger.cancel()
           player.gain(card,target,'giveAuto');
@@ -803,6 +810,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       }
 
       if(result.control === "选项三"){
+        ui.create.dialog(get.translation(player) + "预言了♣️");
         if(suit === "club"){
           trigger.cancel()
           player.gain(card,target,'giveAuto');
@@ -816,6 +824,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
 
       if(result.control === "选项四"){
         if(suit === "diamond"){
+          ui.create.dialog(get.translation(player) + "预言了♦️");
           trigger.cancel()
           player.gain(card,target,'giveAuto');
           var str = get.translation(player) + "预言成功";

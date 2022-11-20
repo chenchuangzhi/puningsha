@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.73',
+	version:'1.9.120.74',
 	update:'1.9.120',
 	changeLog:[
-		'修改预言家的断言',
+		'调整部分武将ai',
 	],
 	files:[
 		'image/character/yuyanjia.jpg',
