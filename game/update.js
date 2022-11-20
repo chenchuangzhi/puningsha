@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.78',
+	version:'1.9.120.77',
 	update:'1.9.120',
 	changeLog:[
-		'小智增加联机能力',
+		'小智',
 	],
 	files:[
 		'image/character/xiaozhi.jpg',
