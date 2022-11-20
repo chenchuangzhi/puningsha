@@ -1,5 +1,5 @@
 window.noname_update={
-	version:'1.9.120.68',
+	version:'1.9.120.72',
 	update:'1.9.120',
 	changeLog:[
 		'调整燎原ai智能化',
