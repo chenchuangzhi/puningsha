@@ -752,25 +752,36 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       },
       content:function(){
         const list =[ 
-          '基本牌',
-          '装备牌',
-          '锦囊牌'
+          '♠️',
+          '♥️',
+          '♣️',
+          '♦️'
         ]
         "step 0"
         player.chooseControl().set('prompt','请预测'+get.translation(trigger.player)+'手里有那种牌型').set('choiceList',list).set('ai',function(){
           const rand = Math.random()
-          if(rand > 0.4){
+          if(rand >= 0.75){
             return 0
-          }else if(rand < 0.1){
+          }
+
+          if(rand < 0.75 && rand >= 0.5){
             return 1
-          }else{
+          }
+
+          if(rand < 0.5 && rand >= 0.25){
             return 2
           }
+
+          return 3
         });
         "step 1"
+        const card=get.cards()[0];
+        player.showCards(card,get.translation(player)+'开始预测');
+        var suit=get.suit(card);
         if(result.control === "选项一"){
-          if(trigger.player.countCards('h',{type:'basic'}) >0){
+          if(suit === "spade"){
           trigger.cancel()
+          player.gain(card,target,'giveAuto');
           var str = get.translation(player) + "预言成功";
           ui.create.dialog(str);
         }else{
@@ -780,8 +791,9 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       }
 
       if(result.control === "选项二"){
-        if(trigger.player.countCards('h',{type:'equip'}) >0){
+        if(suit === "heart"){
           trigger.cancel()
+          player.gain(card,target,'giveAuto');
           var str = get.translation(player) + "预言成功";
           ui.create.dialog(str);
         }else{
@@ -791,8 +803,9 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       }
 
       if(result.control === "选项三"){
-        if(trigger.player.countCards('h',{type:['trick','delay']})>0){
+        if(suit === "club"){
           trigger.cancel()
+          player.gain(card,target,'giveAuto');
           var str = get.translation(player) + "预言成功";
           ui.create.dialog(str);
         }else{
@@ -800,6 +813,19 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
           ui.create.dialog(str);
         }   
       }
+
+      if(result.control === "选项四"){
+        if(suit === "diamond"){
+          trigger.cancel()
+          player.gain(card,target,'giveAuto');
+          var str = get.translation(player) + "预言成功";
+          ui.create.dialog(str);
+        }else{
+          var str = get.translation(player) + "预言失败";
+          ui.create.dialog(str);
+        }   
+      }
+
       }
     }
   },
@@ -862,7 +888,7 @@ game.import("character", function (lib, game, ui, get, ai, _status) {
       yuyan1:"预言",
       yuyan1_info:"每回合限一次，你的回合内，选择一个有手牌的其他角色，然后预测其手牌里，有哪种牌型（基本、装备、锦囊），然后其展示手牌于你。若预测成功，其选择一张该类型手牌给你。",
       duanyan1:"断言",
-      duanyan1_info:"当你成为杀的目标时，若其有剩余手牌，你可以预测其手牌，有哪种牌型（基本、装备、锦囊），预测成功则此杀取消。"
+      duanyan1_info:"当你成为杀的目标时，你可以预测牌堆顶一张牌牌的花色，并展示之，若预测成功，取消此目标并获得此牌。"
     },
   }
 });

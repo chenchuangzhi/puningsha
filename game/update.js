@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'1.9.120.68',
+	version:'1.9.120.69',
 	update:'1.9.120',
 	changeLog:[
-		'调整燎原ai智能化',
+		'修改预言家的断言',
 	],
 	files:[
 		'image/character/yuyanjia.jpg',
