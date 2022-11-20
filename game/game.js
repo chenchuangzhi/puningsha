@@ -30062,7 +30062,7 @@
 			if(type=='extension'){
 				var backup_onload=lib.init.onload;
 				game.loadExtension(content);
-//手杀ui				lib.init.onload=backup_onload;
+			lib.init.onload=backup_onload;
 			}
 			else{
 				if(!lib.imported[type]){
