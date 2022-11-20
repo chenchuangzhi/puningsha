@@ -12,8 +12,8 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             helage: ["male", "daba", 3, ["xianyue", "qiusheng", "tashijiangjun"]],
             sp_nengtianshi: ["female", "daba", 3, ["sp_guozai", "sp_zhufu"]],
             xiaozhi: ["male", "daba", 3, ["pika", "penhuo"]],
-            pikaqiu:["male","daba",3,["pika"]],
-            penhuolong:["male","daba",3,["pika"]],
+            pikaqiu:["male","daba",3,["pika_skill"]],
+            penhuolong:["male","daba",3,["penhuo_skill"]],
         },
         skill: {
             //赵襄
@@ -726,16 +726,58 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                 },
             },
             //小智
-            pika:{
-				enable: "chooseToUse",
+            penhuo:{
+				enable: "phaseUse",
+                usable:1,
+                init:function(player){
+                    player.storage["penhuo"] = false
+                },
+                filter:function(event,player){
+                    return !player.storage["penhuo"]
+                },
 				content:function(){
-					var fellow = game.addPlayer(game.players.length + game.dead.length,"penhuolong","");
+					var fellow = game.addPlayer(100,"penhuolong","");
 					fellow.directgain(get.cards(4));
+                    fellow.addSkill("penhuo_skill")
                     fellow.side=true;
                     fellow.ai.friend.push(player);
 					fellow.identity=player.identity;
+                    player.storage["penhuo"] = true
 				}
 			},
+            pika:{
+				enable: "phaseUse",
+                usable:1,
+                init:function(player){
+                    player.storage["pika"] = false
+                },
+                filter:function(event,player){
+                    return !player.storage["pika"]
+                },
+				content:function(){
+					var fellow = game.addPlayer(200,"pikaqiu","");
+					fellow.directgain(get.cards(4));
+                    fellow.addSkill("pika_skill")
+                    fellow.side=true;
+                    fellow.ai.friend.push(player);
+					fellow.identity=player.identity;
+                    player.storage["pika"] = true
+				}
+			},
+            penhuo_skill:{
+                forced:true,
+                trigger:{source:"damageBegin"},
+                content:function(){
+                    trigger.card && (trigger.card.nature = 'fire')
+                }
+            },
+            pika_skill:{
+                forced:true,
+                trigger:{source:"damageBegin"},
+                content:function(){
+                    trigger.card && (trigger.card.nature = 'thunder')
+                }
+            },
         },
         translate: {
             wuzhaoxiang: '吴赵襄',
@@ -777,6 +819,10 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             penhuo_info:"限定技，出牌阶段，你可以召唤一个喷火龙",
             pikaqiu:"皮卡丘",
             penhuolong:"喷火龙",
+            pika_skill:"皮卡",
+            pika_skill_info:"锁定技。你的伤害均视为雷电伤害",
+            penhuo_skill:"喷火",
+            penhuo_skill_info:"锁定技。你的伤害均视为火焰伤害"
         },
     };
 });

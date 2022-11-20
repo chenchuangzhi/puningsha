@@ -1,10 +1,18 @@
 window.noname_update={
-	version:'1.9.120.76',
+	version:'1.9.120.77',
 	update:'1.9.120',
 	changeLog:[
-		'小智测试',
+		'小智',
 	],
 	files:[
+		'image/character/xiaozhi.jpg',
+		'image/character/pikaqiu.jpg',
+		'image/character/penhuolong.jpg',
+		'image/character/dachu.jpg',
+		'image/character/mushuihan.jpg',
+		'image/character/gaohuan.jpg',
+		'image/character/huanshi.jpg',
+		'image/character/yuwentai.jpg',
 		'image/character/yuyanjia.jpg',
 	    'image/character/sp_nengtianshi.jpg',
 		'image/character/linpingzhi.jpg',
@@ -28,10 +36,5 @@ window.noname_update={
 		'game/source.js',
 		'game/game.js',
 		'character/shenhua.js',
-		'image/character/dachu.jpg',
-		'image/character/mushuihan.jpg',
-		'image/character/gaohuan.jpg',
-		'image/character/huanshi.jpg',
-		'image/character/yuwentai.jpg',
 	]
 };
