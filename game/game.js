@@ -7674,7 +7674,7 @@
 								catch(e){
 									console.log(e);
 								}
-//手杀ui								lib.init.onload=backup_onload;
+							lib.init.onload=backup_onload;
 								_status.evaluatingExtension=false;
 							}
 							else
