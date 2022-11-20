@@ -10,7 +10,10 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             fengdi: ["female", "daba", 4, ["ark_pojun", "ark_bitang"]],
             huafalin: ["female", "daba", 3, ["buwen2", "bangneng2", "shenji2"]],
             helage: ["male", "daba", 3, ["xianyue", "qiusheng", "tashijiangjun"]],
-            sp_nengtianshi: ["famale", "daba", 3, ["sp_guozai", "sp_zhufu"]],
+            sp_nengtianshi: ["female", "daba", 3, ["sp_guozai", "sp_zhufu"]],
+            xiaozhi: ["male", "daba", 3, ["pika", "penhuo"]],
+            pikaqiu:["male","daba",3,["pika"]],
+            penhuolong:["male","daba",3,["pika"]],
         },
         skill: {
             //赵襄
@@ -722,7 +725,17 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
                     }
                 },
             },
-
+            //小智
+            pika:{
+				enable: "chooseToUse",
+				content:function(){
+					var fellow = game.addFellow(4,"penhuolong","");
+					fellow.directgain(get.cards(4));
+                    fellow.side=true;
+                    fellow.ai.friend.push(player);
+					fellow.identity=player.identity;
+				}
+			},
         },
         translate: {
             wuzhaoxiang: '吴赵襄',
@@ -757,6 +770,13 @@ game.import('character', function (lib, game, ui, get, ai, _status) {
             sp_guozai_info: "准备阶段，你可以进行一次判定并获得判定牌，此回合内你可以将与判定牌同颜色的牌视为【杀】使用且使用杀次数加1",
             sp_zhufu: "祝福",
             sp_zhufu_info: "游戏开始时，你可以选择一名其他角色，你与其体力上限与体力值+1",
+            xiaozhi:"小智",
+            pika:"皮卡",
+            penhuo:"喷火",
+            pika_info:"限定技，出牌阶段，你可以召唤一个皮卡丘",
+            penhuo_info:"限定技，出牌阶段，你可以召唤一个喷火龙",
+            pikaqiu:"皮卡丘",
+            penhuolong:"喷火龙",
         },
     };
 });
